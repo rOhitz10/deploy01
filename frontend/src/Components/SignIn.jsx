@@ -29,7 +29,7 @@ const SignIn = () => {
     setLoading(true);
     
     try {
-      const res = await axios.post('http://localhost:3000/api/v1/user-login', { ...data });
+      const res = await axios.post('/api/v1/user-login', { ...data });
       login(res.data.token, '3600000', res.data.user.epin);
       
       if (res.status === 200) {
