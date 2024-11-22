@@ -9,7 +9,7 @@ function ReceiveRequest({ setreceiveCount }) {
   const handleAccept = async (requestId) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/v1/accept/${requestId}`,
+        `/api/v1/accept/${requestId}`,
         {}, // Empty body for PUT request
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -32,7 +32,7 @@ function ReceiveRequest({ setreceiveCount }) {
   const handleReject = async (requestId) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/v1/reject/${requestId}`,
+        `/api/v1/reject/${requestId}`,
         {}, // Empty body for PUT request
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -55,7 +55,7 @@ function ReceiveRequest({ setreceiveCount }) {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/my-requests', {
+        const response = await axios.get('/api/v1/my-requests', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         const requestsData = response.data.data;
