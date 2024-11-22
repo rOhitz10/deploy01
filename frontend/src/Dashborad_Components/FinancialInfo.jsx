@@ -50,7 +50,7 @@ export default function FinancialInfo() {
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
-        "http://localhost:3000/api/v1/update-user",
+        "/api/v1/update-user",
         { ...formData },
         {
           headers: {
