@@ -13,7 +13,7 @@ function GenerateEpin() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post('/api/v1/generateEpins', {
+      const response = await axios.post("/api/v1/generateEpins", {
         quantity,
       });
       if (Array.isArray(response.data)) {
