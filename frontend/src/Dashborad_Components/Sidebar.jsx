@@ -122,7 +122,7 @@ function Sidebar() {
           <Card icon={<FaKeycdn className="text-lg" />} title="Level Update" />
         </Link>
 
-        <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">SUPPORT</h2>
+        {/* <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">SUPPORT</h2>
         <Link to="#">
           <Card icon={<IoTicketOutline className="text-lg" />} title="Tickets" />
         </Link>
@@ -130,7 +130,7 @@ function Sidebar() {
         <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">UTILITY</h2>
         <Link to="#">
           <Card icon={<GiNewspaper className="text-lg" />} title="News" />
-        </Link>
+        </Link> */}
       </div>
 
       {/* Sign Out Button */}
