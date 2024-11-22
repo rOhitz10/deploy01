@@ -16,7 +16,7 @@ function SendRequest({ Data }) {
 
     try {
       const res = await axios.post(
-        'http://localhost:3000/api/v1/send-request',
+        '/api/v1/send-request',
         { receiverId },
         {
           headers: {
