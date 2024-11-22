@@ -7,14 +7,22 @@ const app = express();
 const _dirname = path.resolve();
 
 // Define CORS options
-const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',  // Allow frontend from a specific URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],              
-    credentials: true,                                            // Allow cookies to be sent (if needed)
-};
 
-// Apply CORS middleware with options
-app.use(cors(corsOptions));
+const allowedOrigins = [
+  'https://helpngrow.onrender.com',
+  'https://helpgrow.onrender.com',
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
+
 
 app.use(express.json());
 
