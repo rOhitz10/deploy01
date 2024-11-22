@@ -7,7 +7,7 @@ import { ImCross } from "react-icons/im";
 function Navbar() {
   const [menuOpen,setMenuOpen] = useState(false)
   return (
-    <nav className="bg-[#193A6F]  sticky top-0 z-50 text-white">
+    <nav className="bg-[#193A6F]  sticky top-0 z-50 ">
     <div className=' mx-auto  flex  justify-between items-center p-4'>
   
       <Link to='/'>
@@ -33,7 +33,7 @@ function Navbar() {
           <ul className="flex flex-col items-center space-y-6 py-10 ">
           
             <Link to="/about" onClick={() => setMenuOpen(false)} className="w-full text-center">
-              <li className="text-lg font-semibold text-white hover:text-blue-600 transition-colors duration-300">
+              <li className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
                 ABOUT
               </li>
             </Link>
