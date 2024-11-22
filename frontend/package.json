@@ -9,7 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "proxy": "https://helpgrow.onrender.com",
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
@@ -24,7 +23,6 @@
     "react-router-dom": "^6.26.2",
     "vite": "^5.4.1",
     "@vitejs/plugin-react": "^4.3.1",
-    "proxy": "https://helpgrow.onrender.com",
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
