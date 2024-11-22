@@ -34,7 +34,7 @@ function MyTeam() {
     const fetchData = async () => {
       if (sponsorId) { // Only fetch data if sponsorId is available
         try {
-          const res = await axios.get(`http://localhost:3000/api/v1/get-grand-nodes/`,{
+          const res = await axios.get(`/api/v1/get-grand-nodes/`,{
             params:{sponsorId},
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }, 
           });
