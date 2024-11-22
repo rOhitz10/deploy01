@@ -180,7 +180,7 @@
   },
  "scripts": {
   "dev": "nodemon backend/index.js",
-  "start": "nodemon backend/index.js",
+  "start": "node backend/index.js",
   "build": "cd frontend && npm install && npm run build"
 },
   "keywords": [],
