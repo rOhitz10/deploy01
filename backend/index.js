@@ -27,11 +27,16 @@ dbConnection();
 const newClient = require("./routes/client");
 app.use('/api/v1', newClient);
 
-app.use(express.static(path.join(_dirname, 'frontend', 'dist')));  // Fixed path for static files
+// app.use(express.static(path.join(_dirname, 'frontend', 'dist')));  // Fixed path for static files
 
-app.get('*', (_, res) => {
-    res.sendFile(path.resolve(_dirname, 'frontend', 'dist', 'index.html'));
+// app.get('*', (_, res) => {
+//     res.sendFile(path.resolve(_dirname, 'frontend', 'dist', 'index.html'));
+// });
+app.use(express.static('frontend/dist'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(_dirname, 'frontend', 'dist', 'index.html'));
 });
+
 
 // Listen on server
 app.listen(Port, () => {

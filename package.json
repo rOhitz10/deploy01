@@ -178,11 +178,11 @@
     "yallist": "^4.0.0",
     "zod": "^3.23.8"
   },
-  "scripts": {
-    "dev": "nodemon backend/index.js",
-    "start": "nodemon backend/index.js",
-    "build":"npm install && npm run build --prefix frontend"
-  },
+ "scripts": {
+  "dev": "nodemon backend/index.js",
+  "start": "nodemon backend/index.js",
+  "build": "cd frontend && npm install && npm run build"
+},
   "keywords": [],
   "author": "",
   "license": "ISC"
