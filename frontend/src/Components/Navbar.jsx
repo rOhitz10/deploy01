@@ -11,7 +11,7 @@ function Navbar() {
     <div className=' mx-auto  flex  justify-between items-center p-4'>
   
       <Link to='/'>
-      <h1 className='font-bold text-xl flex'>HELP 'N' GROWW</h1>
+      <h1 className='font-bold text-xl text-black flex'>HELP 'N' GROWW</h1>
       </Link>
     
      <ul className={`md:flex md:space-x-4  md:static hidden  md:flex-row `}>
