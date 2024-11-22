@@ -75,7 +75,7 @@ function LevelTree() {
     if(receiverId){
       try {
         const Updatelevel = await axios.post(
-          'http://localhost:3000/api/v1/send-request-for-levelup',
+          '/api/v1/send-request-for-levelup',
           { receiverId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -89,12 +89,12 @@ function LevelTree() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/v1/get-grand-nodes', {
+        const res = await axios.get('/api/v1/get-grand-nodes', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setData(Array.isArray(res.data.data) ? res.data.data : []);
 
-        const levelUp = await axios.get('http://localhost:3000/api/v1/get-first-levelledUp', {
+        const levelUp = await axios.get('/api/v1/get-first-levelledUp', {
           headers: { Authorization: `Bearer ${token}` },
         })
         setlevelledUp(levelUp.data.data[0]);
