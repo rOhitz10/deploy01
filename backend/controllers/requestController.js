@@ -9,15 +9,15 @@ const Client = require('../models/clientModel');  // Assuming your Client model 
 function getRequiredLinksForLevel(level) {
     switch (level) {
         case 0: return 2;
-        case 1: return 6;
-        case 2: return 14;
-        case 3: return 24;
-        case 4: return 34;
-        case 5: return 44;
-        case 6: return 54;
-        case 7: return 64;
-        case 8: return 64;
-        case 9: return 74;
+        case 1: return 4;
+        case 2: return 8;
+        case 3: return 10;
+        case 4: return 10;
+        case 5: return 10;
+        case 6: return 10;
+        case 7: return 10;
+        case 8: return 10;
+        case 9: return 10;
         default: return level * 10 + 2;
     }
 }
