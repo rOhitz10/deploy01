@@ -9,9 +9,9 @@ export const AuthProvider = ({ children }) => {
     return token && expiry && Date.now() < Number(expiry);
   });
 
-  const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'true');
+  const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'false');
 
-  const login = (token, expiryTime, sponsorId) => {
+  const login = (token, expiryTime, epin) => {
         // if (typeof expiryTime !== 'number' || expiryTime <= 0) {
         //   console.error("Invalid expiry time");
         //   return;
@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
 
     localStorage.setItem('token', token);
     localStorage.setItem('expiry', Date.now() + expiryTime * 1000);
-    localStorage.setItem('sponsorId', sponsorId);
+    localStorage.setItem('epin', epin);
 
-    if (sponsorId === 'HNG00001') {
+    if (epin === 'HNG00001') {
       setAdmin(true);
       localStorage.setItem('isAdmin', true);
     }else{   
