@@ -43,7 +43,7 @@ function Levelupdate() {
       if(receiverId){
         try {
           const Updatelevel = await axios.post(
-            '/api/v1/send-request-for-levelup',
+            "/api/v1/send-request-for-levelup",
             { receiverId },
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -57,7 +57,7 @@ function Levelupdate() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const levelUp = await axios.get('/api/v1/get-first-levelledUp', {
+          const levelUp = await axios.get("/api/v1/get-first-levelledUp", {
             headers: { Authorization: `Bearer ${token}` },
           })
           setlevelledUp(levelUp.data.data[0]);
