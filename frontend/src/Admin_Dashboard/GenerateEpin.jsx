@@ -58,7 +58,6 @@ function GenerateEpin() {
   const handleCopyAll = () => {
     const epinsText = data.map(item => item.epins).join('\n');
     navigator.clipboard.writeText(epinsText);
-    alert('ePins copied to clipboard!');
   };
 
   useEffect(() => {
@@ -138,7 +137,7 @@ function GenerateEpin() {
                     onClick={handleCopyAll}
                     className="flex items-center px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                   >
-                    <FaCopy className="mr-2" /> Copy All
+                    <FaCopy className="mr-2" />{epinsText ? "Copy All" : "Copied"}
                   </button>
                 )}
               </div>
