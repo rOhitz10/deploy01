@@ -64,7 +64,6 @@ const DashHome = () => {
     };
   }, []);
 
-  const sponsorId = localStorage.getItem('sponsorId');
 
   // send and receive requst
 const handleReceive = () => {
@@ -86,6 +85,7 @@ const handleSend = async() => {
 }
 
 
+  const sponsorId = localStorage.getItem('epin');
 
 
   useEffect(() => {
