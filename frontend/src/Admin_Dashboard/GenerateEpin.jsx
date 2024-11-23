@@ -10,6 +10,8 @@ function GenerateEpin() {
   const [searchTerm, setSearchTerm] = useState('');
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
+
 
   const fetchData = async () => {
     try {
@@ -56,9 +58,21 @@ function GenerateEpin() {
   };
 
   const handleCopyAll = () => {
+  if (data.length > 0) {
     const epinsText = data.map(item => item.epins).join('\n');
-    navigator.clipboard.writeText(epinsText);
-  };
+    navigator.clipboard.writeText(epinsText)
+      .then(() => {
+        setIsCopied(true); // Set to "Copied" after success
+        setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+      })
+      .catch(err => {
+        console.error('Failed to copy text:', err);
+      });
+  } else {
+    alert('No ePins to copy!');
+  }
+};
+
 
   useEffect(() => {
     document.addEventListener('mousedown', handleOutsideClick);
@@ -129,17 +143,19 @@ function GenerateEpin() {
             </button>
 
             {/* Display the generated epins */}
-            <div className="w-full max-w-lg p-4 border rounded-lg shadow-lg bg-white mt-4">
+            <div className="w-full min-w-60 p-4 border rounded-lg shadow-lg bg-white mt-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-bold text-blue-500">Generated EPins</h2>
                 {data.length > 0 && (
-                  <button
-                    onClick={handleCopyAll}
-                    className="flex items-center px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-                  >
-                    <FaCopy className="mr-2" />Copy All
-                  </button>
+                 <button
+                  onClick={handleCopyAll}
+                  className="flex items-center px-3 py-1 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                 >
+                  <FaCopy className="mr-2" />
+                  {isCopied ? 'Copied' : 'Copy All'}
+                </button>
                 )}
+
               </div>
               <div className="h-60 scrollbar-y mt-2 border-t border-gray-200 pt-2">
                 {data.length > 0 ? (
