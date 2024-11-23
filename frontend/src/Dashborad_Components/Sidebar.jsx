@@ -6,8 +6,10 @@ import { ImTree } from "react-icons/im";
 import { AiOutlineTeam } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
 import { FaKeycdn } from "react-icons/fa6";
-import { GiNewspaper } from "react-icons/gi";
+import { GiNewspaper, GiGrowth } from "react-icons/gi";
 import { LiaSignOutAltSolid } from "react-icons/lia";
+
+import { FaArrowDownWideShort,FaArrowUpShortWide } from "react-icons/fa6";
 import { useAuth } from '../AuthContext';
 // import jwt_decode from 'jwt-decode';
 import {jwtDecode} from 'jwt-decode';
@@ -38,6 +40,7 @@ function Sidebar() {
      
       try {
         const decoded = jwtDecode(token);
+        console.log(decoded.name)
         setUserId(decoded.epin);
         setUserName(decoded.name || "User"); // Use decoded userName or fallback
       } catch (error) {
@@ -54,35 +57,38 @@ function Sidebar() {
 
 
   return (
-    <div className="flex flex-col items-start p-4 h-screen bg-white  shadow-md">
-      <h1 className="text-xl font-bold mb-6">Help'n'Groww</h1>
+    <div className=" min-h-screen bg-white scrollbar-y ">
+      <div className=' flex flex-col items-start space-y-4 px-4'>
 
-      <div className="bg-slate-200 rounded-xl p-4 m-4">
+      <h1 className="text-xl font-bold my-3 text-center">Help'n'Groww</h1>
+
+      <div className="bg-slate-300 rounded-xl p-4  space-x-4 ">
         <div className="flex items-center w-full cursor-pointer">
           <img
             src="https://cdnb.artstation.com/p/assets/images/images/026/142/657/large/sleepy-jhin-roronoa-zoro-portrait.jpg?1587999560"
             alt="Profile"
             className="rounded-full w-10 h-10"
-          />
-          <div className="ml-3">
-            <h3 className="text-sm font-semibold">{userName}</h3>
+            />
+          <div className=" mx-2">
+            <h3 className="text-sm font-semibold overflow-hidden ">{userName} h</h3>
             <p className="text-xs text-gray-600">{userId}</p>
           </div>
           <button
-            className="mx-4 text-sm focus:outline-none"
+            className=" text-sm focus:outline-none bg-slate-400 rounded-md p-2"
             onClick={() => setProfileOpen(!isProfileOpen)}
-          >
-            {isProfileOpen ? '▲' : '▼'}
+            >
+              
+            {isProfileOpen ?  <FaArrowDownWideShort /> : <FaArrowUpShortWide/>}
           </button>
         </div>
 
         {isProfileOpen && (
-          <div className="ml-4 my-2 space-y-2 text-sm text-gray-700">
+          <div className="ml-4 my-2  space-y-8 text-sm text-white font-semibold">
             <Link to="/dashboard/profile" >
-            <div  className="px-2 border-2 rounded-lg hover:bg-slate-500 hover:text-blue-600">My Profile</div>
+            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-500 hover:text-blue-600">My Profile</div>
             </Link>
             <Link to="/dashboard/financial-info">
-            <div  className="px-2 border-2 rounded-lg hover:bg-slate-500 hover:text-blue-600">Financial </div>
+            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-500 hover:text-blue-600">Financial </div>
             </Link>
             {/* <div className="px-2 border-2 rounded-lg hover:bg-slate-500 hover:text-blue-600">Password</div> */}
            
@@ -116,10 +122,10 @@ function Sidebar() {
 
         <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">EPIN</h2>
         <Link to={`/dashboard/myepins`}>
-          <Card icon={<BsShieldLock className="text-lg" />} title="My Epins" />
+          <Card icon={<BsShieldLock className="text-lg" />} title="Request Epins" />
         </Link>
         <Link to={`/dashboard/Levelupdate`}>
-          <Card icon={<FaKeycdn className="text-lg" />} title="Level Update" />
+          <Card icon={< GiGrowth className="text-lg" />} title="Level Update" />
         </Link>
 
         {/* <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">SUPPORT</h2>
@@ -134,13 +140,16 @@ function Sidebar() {
       </div>
 
       {/* Sign Out Button */}
+
       <button
-        className="flex items-center mt-auto text-gray-700 hover:text-blue-600"
+        className="flex items-center my-6 py-6 mx-4 text-gray-700 hover:text-blue-600"
         onClick={handleLogout} // Attach handleLogout here
-      >
+        >
         <LiaSignOutAltSolid className="w-6 h-6 mr-2" />
         <span>Sign Out</span>
       </button>
+          
+        </div>
     </div>
   );
 }
