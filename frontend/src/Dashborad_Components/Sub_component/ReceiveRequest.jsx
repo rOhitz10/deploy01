@@ -9,7 +9,7 @@ function ReceiveRequest({ setreceiveCount }) {
   const handleAccept = async (requestId) => {
     try {
       const response = await axios.put(
-        `/api/v1/accept/${requestId}`,
+        `http://localhost:3000/api/v1/accept/${requestId}`,
         {}, // Empty body for PUT request
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -32,7 +32,7 @@ function ReceiveRequest({ setreceiveCount }) {
   const handleReject = async (requestId) => {
     try {
       const response = await axios.put(
-        `/api/v1/reject/${requestId}`,
+        `http://localhost:3000/api/v1/reject/${requestId}`,
         {}, // Empty body for PUT request
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -55,7 +55,7 @@ function ReceiveRequest({ setreceiveCount }) {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get('/api/v1/my-requests', {
+        const response = await axios.get('http://localhost:3000/api/v1/my-requests', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         const requestsData = response.data.data;
@@ -73,36 +73,39 @@ function ReceiveRequest({ setreceiveCount }) {
   }, [setreceiveCount]); // Dependency ensures the count updates properly.
 
   return (
-    <div className="overflow-y-scroll h-80 p-4 rounded-lg shadow-md scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-      {/* Display dynamic count of new requests */}
-      {/* <div className="text-lg font-semibold text-center mb-4">
-        Total Pending Requests: {requests.filter((req) => req.status === 'pending').length}
-      </div> */}
-
+    <div className="overflow-y-auto h-80 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
       {/* Render the requests */}
       {requests.map((data) => (
         <div
           key={data._id}
-          className="flex flex-col items-center justify-start py-4 mb-4 bg-white rounded-md shadow-sm transition-all duration-300"
+          className=" flex items-center justify-center py-4 mb-4  border-b-2 border-gray-950  border-dotted transition-all duration-300 "
         >
-          <div className="p-4 flex justify-center items-center space-x-2">
-            <div className="p-2 min-w-[120px] text-black text-center border-2 border-gray-500 rounded-md bg-gray-100">
+          <div className="flex justify-center items-center space-x-2 ">
+            <div className=" overflow-clip py-2 min-w-[100px]  text-black text-center border-2 border-gray-500 rounded-md bg-gray-100">
               {data.senderId.name}
             </div>
-            <button
-              className="py-2 px-4 border-2 rounded-xl hover:bg-green-500 hover:text-white border-green-500 transition duration-200"
-              onClick={() => handleAccept(data._id)}
-              disabled={data.status === 'accepted'}
-            >
-              {data.status === 'accepted' ? 'Accepted' : 'Accept'}
-            </button>
-            <button
-              className="py-2 px-4 border-2 rounded-xl hover:bg-red-500 hover:text-white border-red-500 transition duration-200"
-              onClick={() => handleReject(data._id)}
-              disabled={data.status === 'rejected'}
-            >
-              {data.status === 'rejected' ? 'Rejected' : 'Reject'}
-            </button>
+            
+            {/* Accept button, hidden if already accepted */}
+            {data.status === 'accepted' || data.status === 'pending' ? (
+              <button
+                className="py-2 px-4 border-2 rounded-xl hover:bg-green-500 hover:text-white border-green-500 transition duration-200"
+                onClick={() => handleAccept(data._id)}
+                disabled={data.status === 'accepted'}
+              >
+                {data.status === 'accepted' ? 'Accepted' : 'Accept'}
+              </button>
+            ) : null}
+
+            {/* Reject button, hidden if already rejected */}
+            {!data.status === 'accepted' || data.status === 'pending' ? (
+              <button
+                className="py-2 px-4 border-2 rounded-xl hover:bg-red-500 hover:text-white border-red-500 transition duration-200"
+                onClick={() => handleReject(data._id)}
+                disabled={data.status === 'rejected'}
+              >
+                {data.status === 'rejected' ? 'Rejected' : 'Reject'}
+              </button>
+            ) : null}
           </div>
         </div>
       ))}
