@@ -29,7 +29,7 @@ function MyTeam() {
     };
   }, []);
   
-  const sponsorId = localStorage.getItem('sponsorId')
+  const sponsorId = localStorage.getItem('epin')
   useEffect(() => {
     const fetchData = async () => {
       if (sponsorId) { // Only fetch data if sponsorId is available
