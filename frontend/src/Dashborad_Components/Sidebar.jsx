@@ -70,7 +70,7 @@ function Sidebar() {
             className="rounded-full w-10 h-10"
             />
           <div className=" mx-2">
-            <h3 className="text-sm font-semibold overflow-hidden ">{userName} h</h3>
+            <h3 className="text-sm font-semibold overflow-hidden ">{userName}</h3>
             <p className="text-xs text-gray-600">{userId}</p>
           </div>
           <button
