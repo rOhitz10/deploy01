@@ -149,8 +149,8 @@ function LevelTree() {
 
         <Header />
 
-        <div className="  p-8 border-2">
-          <h1 className=" flex-col p-8">Level Tree</h1>
+         <div className="  p-6 ">
+        <h1 className="text-2xl font-semibold mb-8">Level Tree</h1>
           <div className="flex space-x-4 mb-6">
             <input
               type="text"
