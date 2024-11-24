@@ -6,6 +6,7 @@ function SendRequest({ Data }) {
 
   const receiverId = Data?._id  || null; // Ensures `Data` is defined
 
+
   const fetch = async () => {
     const token = localStorage.getItem('token');
 
@@ -16,7 +17,7 @@ function SendRequest({ Data }) {
 
     try {
       const res = await axios.post(
-        '/api/v1/send-request',
+        "http://localhost:3000/api/v1/send-request",
         { receiverId },
         {
           headers: {
@@ -29,6 +30,7 @@ function SendRequest({ Data }) {
     } catch (error) {
       const errorMessage = error.response?.data?.msg || 'Request failed. Please try again.';
       setShowErr(errorMessage);
+      console.error('Error while sending request:', error);
     }
   };
 
@@ -37,17 +39,17 @@ function SendRequest({ Data }) {
       {showErr && (
         <div className="text-red-500 bg-red-100 text-center p-2 m-4">{showErr}</div>
       )}
-      <div className="p-8 flex gap-4 justify-between items-center">
+      <div className="p-8 flex  justify-between items-center">
         {/* Display name for clarity, but make input readOnly */}
         <input
-          type="text"
-          placeholder={Data?.name }
+          
+          placeholder={Data? Data.name:"no user for send request" }
           
           readOnly
-          className="w-full p-2 text-gray-700 border-2 border-black"
+          className="w-full p-2 font-bold  border-2  rounded-2xl rounded-r-none "
         />
         <button
-          className="py-2 px-4 border-2 rounded-xl hover:bg-slate-600"
+          className="bg-sky-200 border-black relative right-4 py-2 px-4  border-2 rounded-2xl hover:bg-sky-300 "
           onClick={fetch}
         >
           Send
