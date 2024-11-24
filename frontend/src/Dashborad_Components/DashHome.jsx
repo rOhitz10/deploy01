@@ -151,7 +151,7 @@ const handleSend = async() => {
         <div className="p-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold">Dashboard</h1>
-            <div className="text-sm">
+            <div className="text-sm ml-8">
               <label className="block text-gray-500">My Referral Link:</label>
               <div className="flex items-center space-x-2">
                 <input
