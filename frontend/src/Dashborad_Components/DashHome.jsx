@@ -226,7 +226,7 @@ const handleSend = async() => {
             <div className="border-2 border-red-400 rounded-lg p-6 text-center">
               <h2 className="text-xl font-semibold text-red-500">Send Help</h2>
               <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" onClick={handleSend}>
-               {0} Send Link Available 
+              Send Link Available 
               </button>
               {sendError && (
           <div className="text-red-500 bg-red-100   text-center  p-2 m-4">
