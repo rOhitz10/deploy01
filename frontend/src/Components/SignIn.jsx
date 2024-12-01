@@ -32,7 +32,7 @@ const SignIn = () => {
       const res = await axios.post('/api/v1/user-login', { ...data });
       login(res.data.token, '3600000', res.data.user.epin);
       
-      
+      const isadmin = localStorage.getItem('isAdmin');
         if (!isadmin) {
           navigate('/dashboard');
         }
