@@ -31,14 +31,14 @@ const SignIn = () => {
     try {
       const res = await axios.post('/api/v1/user-login', { ...data });
       login(res.data.token, '3600000', res.data.user.epin);
-      
-      const isadmin = localStorage.getItem('isAdmin');
-        if (!isadmin) {
-          navigate('/dashboard');
-        }
-        else{
-          navigate('/admin/dashboard')
-        }
+
+      // Get 'isAdmin' from localStorage and compare it properly
+      const isAdmin = localStorage.getItem('isAdmin');
+      if (isAdmin === "true") {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
       
     } catch (err) {
       // Log error message directly from the response
@@ -133,9 +133,7 @@ const SignIn = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white focus:outline-none ${
-                loading ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'
-              } focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+              className={`relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white focus:outline-none ${loading ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700'} focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
             >
               {loading ? (
                 <span className="spinner-border animate-spin inline-block w-4 h-4 border-4 rounded-full text-white mr-2"></span>
