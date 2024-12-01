@@ -29,13 +29,13 @@ const SignIn = () => {
     setLoading(true);
     
     try {
-      const res = await axios.post('/api/v1/user-login', { ...data });
+      const res = await axios.post("/api/v1/user-login", { ...data });
       login(res.data.token, '3600000', res.data.user.epin);
 
       // Get 'isAdmin' from localStorage and compare it properly
-      const isAdmin = localStorage.getItem('isAdmin');
+      const isAdmin = localStorage.getItem("isAdmin");
       if (isAdmin) {
-        navigate('/admin/dashboard');
+        navigate("/admin/dashboard");
       } else {
         navigate('/dashboard');
       }
