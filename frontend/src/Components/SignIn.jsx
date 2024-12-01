@@ -34,7 +34,7 @@ const SignIn = () => {
 
       // Get 'isAdmin' from localStorage and compare it properly
       const isAdmin = localStorage.getItem('isAdmin');
-      if (isAdmin === "true") {
+      if (isAdmin) {
         navigate('/admin/dashboard');
       } else {
         navigate('/dashboard');
