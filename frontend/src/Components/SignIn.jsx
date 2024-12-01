@@ -32,9 +32,13 @@ const SignIn = () => {
       const res = await axios.post('/api/v1/user-login', { ...data });
       login(res.data.token, '3600000', res.data.user.epin);
       
-      if (res.status === 200) {
-        navigate('/dashboard');
-      }
+      
+        if (!isadmin) {
+          navigate('/dashboard');
+        }
+        else{
+          navigate('/admin/dashboard')
+        }
       
     } catch (err) {
       // Log error message directly from the response
