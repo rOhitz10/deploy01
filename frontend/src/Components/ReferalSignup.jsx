@@ -1,22 +1,24 @@
 import React, { useState } from 'react'
 import Logo from '../assets/Logo.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function SignUp() {
-
+function ReferalSignUp() {
+  const {sponsorEpin} = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sponsorId: '',
     epin: '',
     password: '',
-    // confirmPassword: '',
     name: '',
     email: '',
     number: '',
     acceptTerms: false,
   });
+
+  
+  const [error, setError] = useState(''); // State to handle error messages
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,53 +30,55 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/api/v1/create-chain",formData)
-    
-    .then((res)=>{
-      alert("you are registered")
-      if (res.status === 201) {
-        
-        navigate('/signin')
-        
-      }
-    })
-    .catch((err)=>console.error(err))
-    
+    axios.post("http://localhost:3000/api/v1/create-chain", formData)
+      .then((res) => {
+        if (res.status === 201) {
+          alert("You are registered");
+          navigate('/signin');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // Set the error message to state
+        const errorMessage = err.response?.data?.msg || 'Registration failed. Please try again.';
+        setError(errorMessage);
+      });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 p-4 sm:p-8">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg transition-transform transform ">
         <div className="text-center">
-          <img
-            src={Logo} 
-            alt="Logo"
-            className="w-52 mx-auto "
-          />
-          <h2 className="text-2xl font-bold">Create Your Account</h2>
-          <p className="text-sm text-gray-500">
-            Don't have an account yet?{' '}
-            <Link to="/signin" className="text-blue-600 hover:underline">
-              <h1>
-                Sign in here
-                </h1>
+          <img src={Logo} alt="Logo" className="w-36 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-gray-800">Create Your Account</h2>
+          <p className="text-gray-600 mt-1">
+            Already have an account?{' '}
+            <Link to="/signin" className="text-indigo-600 hover:underline">
+              Sign in here
             </Link>
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Display error message */}
+        {error && (
+          <div className="text-red-500 bg-red-100 border border-red-400 text-center rounded-lg p-2 mb-4">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label htmlFor="sponsorId" className="block text-sm font-medium text-gray-700">
-              Sponsor Id
+              Sponsor ID
             </label>
             <input
               type="text"
               name="sponsorId"
               id="sponsorId"
-              placeholder="eg. P2PF123456"
-              value={formData.sponsorId}
+              placeholder="eg. HNG123456"
+              value={sponsorEpin}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
           <div>
@@ -87,7 +91,7 @@ function SignUp() {
               id="epin"
               value={formData.epin}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
           <div>
@@ -100,22 +104,9 @@ function SignUp() {
               id="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
-          {/* <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              Password Confirmation
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
-            />
-          </div> */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
@@ -126,7 +117,7 @@ function SignUp() {
               id="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
           <div>
@@ -139,7 +130,7 @@ function SignUp() {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
           <div>
@@ -152,7 +143,7 @@ function SignUp() {
               id="number"
               value={formData.number}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-lg focus:ring focus:ring-blue-500"
+              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
           <div className="flex items-center">
@@ -162,34 +153,35 @@ function SignUp() {
               id="acceptTerms"
               checked={formData.acceptTerms}
               onChange={handleChange}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-500"
+              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring focus:ring-indigo-500"
             />
             <label htmlFor="acceptTerms" className="ml-2 text-sm text-gray-600">
               I accept the{' '}
-              <a href="/terms" className="text-blue-600 hover:underline">
+              <a href="#" className="text-indigo-600 hover:underline">
                 Terms and Conditions
               </a>
             </label>
           </div>
           <button
-           disabled={!formData.acceptTerms}
             type="submit"
-            className="w-full py-2 mt-4 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            disabled={!formData.acceptTerms}
+            className="w-full py-2 mt-4 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
           >
             Sign up
           </button>
         </form>
+        
         <p className="mt-4 text-center text-sm text-gray-600">
           or
-         <Link to='/'>
-          <div className="text-blue-600 hover:underline">
-            Go back to website
-          </div>
-         </Link>
+          <Link to="/">
+            <span className="text-indigo-600 hover:underline ml-1">
+              Go back to website
+            </span>
+          </Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default SignUp
+export default ReferalSignUp
