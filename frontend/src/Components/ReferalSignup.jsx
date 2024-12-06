@@ -30,7 +30,7 @@ function ReferalSignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/api/v1/create-chain", formData)
+    axios.post("/api/v1/create-chain", formData)
       .then((res) => {
         if (res.status === 201) {
           alert("You are registered");
