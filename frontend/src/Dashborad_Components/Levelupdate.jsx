@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from './Sidebar'
 import Header from './Header';
 import { FaArrowCircleRight, FaUserCircle } from "react-icons/fa";
-import { LuArrowUpSquare } from 'react-icons/lu';
+import { BsArrowUpSquare } from "react-icons/bs";
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 
@@ -118,7 +118,7 @@ function Levelupdate() {
 
           <div className="flex justify-end">
             <button className="p-8" onClick={handleUpdatelevel}>
-              <LuArrowUpSquare size={40} />
+              <BsArrowUpSquare size={40} />
             </button>
           </div>
         </div>
