@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { TbWorld } from "react-icons/tb";
-import { LuMenuSquare } from "react-icons/lu";
+import { FaBars } from "react-icons/fa";
  import { ImCross } from "react-icons/im";
 
 function Navbar() {
@@ -26,7 +26,7 @@ function Navbar() {
       <li >CONTACT</li>
      </Link>
      </ul>
-     <button className='md:hidden' onClick={() => setMenuOpen(!menuOpen)}>{menuOpen?<ImCross/>:<LuMenuSquare size={22}/>}
+     <button className='md:hidden' onClick={() => setMenuOpen(!menuOpen)}>{menuOpen?<ImCross/>:<FaBars size={22}/>}
      {/* Dropdown Menu */}
      {menuOpen && (
         <div className="absolute left-0 top-16 min-h-[93vh] bg-white w-full z-50 shadow-lg transition-transform duration-500 ease-in-out transform translate-y-0">

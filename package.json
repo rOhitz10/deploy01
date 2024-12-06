@@ -30,7 +30,7 @@
     "console-control-strings": "^1.1.0",
     "content-disposition": "^0.5.4",
     "content-type": "^1.0.5",
-    "cookie": "^0.6.0",
+    "cookie": "^1.0.2",
     "cookie-signature": "^1.0.6",
     "cors": "^2.8.5",
     "debug": "^2.6.9",
@@ -179,13 +179,13 @@
     "zod": "^3.23.8"
   },
   "scripts": {
-  "dev": "nodemon backend/index.js",
-  "start": "node backend/index.js",
-  "build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
-},
+    "dev": "nodemon backend/index.js",
+    "start": "node backend/index.js",
+    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
+  },
   "engines": {
-  "node": ">=16.0.0 <20.0.0"
-},
+    "node": ">=16.0.0 <20.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"
