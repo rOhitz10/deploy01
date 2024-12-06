@@ -21,11 +21,10 @@ const DashHome = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [copy, setCopy] = useState(false);
-  const textToCopy = "Help'n'Groww";
   const [menuBar, setMenuBar] = useState(false);
   const sidebarRef = useRef(null); // Ref to track sidebar element
   const [receive,setreceive] = useState(false) //for receive button
-
+  
   const [send,setsend] = useState(false) //for send button
   const [sendError,setsendError] = useState('')
   const [senddata, setsendData] = useState({
@@ -36,6 +35,8 @@ const DashHome = () => {
     _id: 0,
   })
   const [receiveCount, setreceiveCount] = useState('');
+  const sponsorId = localStorage.getItem('sponsorId');
+  const textToCopy = `http://localhost:8000/r/signup/${sponsorId}`;
 
   const handleCopy = async () => {
     try {
@@ -43,7 +44,7 @@ const DashHome = () => {
       setCopy(true);
       setTimeout(() => setCopy(false), 2000);
     } catch (error) {
-      console.error('Error copying to clipboard', error);
+      console.log('Error copying to clipboard', error);
     }
   };
 
@@ -64,6 +65,7 @@ const DashHome = () => {
     };
   }, []);
 
+  // console.log("sponsorId", sponsorId);
 
   // send and receive requst
 const handleReceive = () => {
@@ -73,32 +75,33 @@ const handleReceive = () => {
 // api for get user for request 
 const handleSend = async() => {
   try {
-    const ans = await axios.get("/api/v1/get-user-for-request", {
+    const ans = await axios.get(`http://localhost:3000/api/v1/get-user-for-request`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
+   
     setsendData(ans.data.data[0]);
   } catch (error) {
     const errorMessage = error.response?.data?.msg || ' Please try again.';
      setsendError(errorMessage)
+    console.error("Fail to fetch",error);
   } 
   setsend(!send);
 }
 
 
-  const sponsorId = localStorage.getItem('epin');
 
 
   useEffect(() => {
     const fetchData = async () => {
       if (sponsorId) {
         try {
-          const response = await axios.get("/api/v1/count-all-downline", {
+          const response = await axios.get("http://localhost:3000/api/v1/count-all-downline", {
             params: { sponsorId }, // Pass sponsorId as a query parameter
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }, // Add auth token if required
           });
           setData(response.data);
 
-          const res = await axios.get("/api/v1/count-all-direct-downline", {
+          const res = await axios.get("http://localhost:3000/api/v1/count-all-direct-downline", {
             params: { sponsorId },
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
           });         
@@ -216,7 +219,7 @@ const handleSend = async() => {
 
           {/* Action Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6" >
-            <div className="border-2 border-green-400 rounded-lg p-6 text-center ">
+            <div className="border-2 border-green-400 rounded-lg text-center ">
               <h2 className="text-xl font-semibold text-green-500">Receive Help</h2>
               <button className="my-4 px-4 py-2 bg-green-500 text-white rounded-full" onClick={handleReceive}>
                {receiveCount} Receive Link Available
@@ -226,7 +229,7 @@ const handleSend = async() => {
             <div className="border-2 border-red-400 rounded-lg p-6 text-center">
               <h2 className="text-xl font-semibold text-red-500">Send Help</h2>
               <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" onClick={handleSend}>
-              Send Link Available 
+               {0} Send Link Available 
               </button>
               {sendError && (
           <div className="text-red-500 bg-red-100   text-center  p-2 m-4">
