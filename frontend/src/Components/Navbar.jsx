@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { TbWorld } from "react-icons/tb";
 import { LuMenuSquare } from "react-icons/lu";
-// import { ImCross } from "react-icons/im";
+
 
 function Navbar() {
   const [menuOpen,setMenuOpen] = useState(false)
