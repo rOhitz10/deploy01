@@ -30,7 +30,7 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="signin" element={<SignIn />} />
-        <Route path="r/signup/:sponsorEpin" element={<ReferalSignUp/>} />
+        <Route path="r-signup/:sponsorEpin" element={<ReferalSignUp/>} />
 
 
         {/* Protected User Dashboard Routes */}
