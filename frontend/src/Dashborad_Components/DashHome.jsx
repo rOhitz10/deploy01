@@ -35,8 +35,8 @@ const DashHome = () => {
     _id: 0,
   })
   const [receiveCount, setreceiveCount] = useState('');
-  const sponsorId = localStorage.getItem('sponsorId');
-  const textToCopy = `https://helpngrow.onrender.com/r/signup/${sponsorId}`;
+  const sponsorEpin = localStorage.getItem('epin');
+  const textToCopy = `https://helpngrow.onrender.com/r/signup/${sponsorEpin}`;
 
   const handleCopy = async () => {
     try {
