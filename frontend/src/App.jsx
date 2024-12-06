@@ -5,6 +5,7 @@ import Contact from './Components/Contact';
 import Plan from './Components/Plan';
 import SignIn from './Components/SignIn';
 import SignUp from './Components/SignUp';
+import ReferalSignUp from './Components/ReferalSignup';
 import DashHome from './Dashborad_Components/DashHome';
 import LevelTree from './Dashborad_Components/LevelTree';
 import MyTeam from './Dashborad_Components/MyTeam';
@@ -29,6 +30,8 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="signin" element={<SignIn />} />
+        <Route path="r/signup/:sponsorEpin" element={<ReferalSignUp/>} />
+
 
         {/* Protected User Dashboard Routes */}
         <Route element={<PrivateRoutes />}>
