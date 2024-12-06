@@ -36,7 +36,7 @@ const DashHome = () => {
   })
   const [receiveCount, setreceiveCount] = useState('');
   const sponsorId = localStorage.getItem('sponsorId');
-  const textToCopy = `http://localhost:8000/r/signup/${sponsorId}`;
+  const textToCopy = `https://helpngrow.onrender.com/r/signup/${sponsorId}`;
 
   const handleCopy = async () => {
     try {
@@ -75,7 +75,7 @@ const handleReceive = () => {
 // api for get user for request 
 const handleSend = async() => {
   try {
-    const ans = await axios.get(`http://localhost:3000/api/v1/get-user-for-request`, {
+    const ans = await axios.get(`/api/v1/get-user-for-request`, {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
    
@@ -95,13 +95,13 @@ const handleSend = async() => {
     const fetchData = async () => {
       if (sponsorId) {
         try {
-          const response = await axios.get("http://localhost:3000/api/v1/count-all-downline", {
+          const response = await axios.get("/api/v1/count-all-downline", {
             params: { sponsorId }, // Pass sponsorId as a query parameter
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }, // Add auth token if required
           });
           setData(response.data);
 
-          const res = await axios.get("http://localhost:3000/api/v1/count-all-direct-downline", {
+          const res = await axios.get("/api/v1/count-all-direct-downline", {
             params: { sponsorId },
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
           });         
