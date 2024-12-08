@@ -151,6 +151,8 @@ const handleSend = async() => {
 
         <Header />
 
+        {copy && <div className='absolute top-22 w-full flex justify-center items-center  h-12 bg-red-200'> <h1 className='text-2xl text-red-600'>Copied!</h1></div>}
+
         <div className="p-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold">Dashboard</h1>
@@ -160,7 +162,7 @@ const handleSend = async() => {
                 <input
                   type="text"
                   readOnly
-                  value="Please copy me"
+                  value={textToCopy}
                   className="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 w-full"
                 />
                 <button
