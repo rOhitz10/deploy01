@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../assets/Logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function SignUp() {
   });
   
   const [error, setError] = useState(''); // State to handle error messages
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -96,13 +98,19 @@ function SignUp() {
               Password
             </label>
             <input
-              type="password"
+              type={passwordVisible ? 'text' : 'password'} 
               name="password"
               id="password"
               value={formData.password}
               onChange={handleChange}
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
+             <div
+              onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
+              className="absolute right-12 top-[49%]  transform -translate-y-1/2 cursor-pointer text-gray-500"
+            >
+              {passwordVisible ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+            </div>
           </div>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
