@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import Logo from '../assets/Logo.png'
+import React, { useState, useEffect } from 'react';
+import Logo from '../assets/Logo.png';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function ReferalSignUp() {
-  const {sponsorEpin} = useParams();
+  const { sponsorEpin } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     sponsorId: '',
@@ -17,8 +17,17 @@ function ReferalSignUp() {
     acceptTerms: false,
   });
 
-  
   const [error, setError] = useState(''); // State to handle error messages
+
+  // Set the sponsorId when component mounts
+  useEffect(() => {
+    if (sponsorEpin) {
+      setFormData((prevData) => ({
+        ...prevData,
+        sponsorId: sponsorEpin,  // Set sponsorId from URL params
+      }));
+    }
+  }, [sponsorEpin]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,16 +39,16 @@ function ReferalSignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/api/v1/create-chain", formData)
+    axios
+      .post("/api/v1/create-chain", formData)
       .then((res) => {
         if (res.status === 201) {
-          alert("You are registered");
+          alert('You are registered');
           navigate('/signin');
         }
       })
       .catch((err) => {
         console.log(err);
-        // Set the error message to state
         const errorMessage = err.response?.data?.msg || 'Registration failed. Please try again.';
         setError(errorMessage);
       });
@@ -73,11 +82,10 @@ function ReferalSignUp() {
             </label>
             <input
               type="text"
+              readOnly
               name="sponsorId"
               id="sponsorId"
-              placeholder="eg. HNG123456"
-              value={sponsorEpin}
-              onChange={handleChange}
+              value={formData.sponsorId} // Use value from formData
               className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
           </div>
@@ -170,7 +178,7 @@ function ReferalSignUp() {
             Sign up
           </button>
         </form>
-        
+
         <p className="mt-4 text-center text-sm text-gray-600">
           or
           <Link to="/">
@@ -182,6 +190,6 @@ function ReferalSignUp() {
       </div>
     </div>
   );
-};
+}
 
-export default ReferalSignUp
+export default ReferalSignUp;
