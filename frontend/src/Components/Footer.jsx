@@ -6,7 +6,7 @@ import { FaTwitter ,FaLinkedin ,FaInstagram,FaFacebookSquare} from "react-icons/
 
 function Footer() {
   return (
-    <footer className='bg-black '>
+    <footer className='bg-gray-700 '>
      <div className='mx-11 flex justify-between items-center border-b'>
       <img className='w-22 h-20' src={Helpngroww} alt="" />
       <div className='flex gap-3'>
@@ -31,12 +31,12 @@ function Footer() {
         <div className="mb-4 lg:mb-0">
           <ul className="p-4 flex flex-col gap-2">
             <li className="font-bold text-xl">Learn & Get help</li>
-            <li>hello</li>
-            <li>hello</li>
-            <li>hello</li>
-            <li>hello</li>
-            <li>hello</li>
-            <li>hello</li>
+            <li>Empower Your Network</li>
+            <li>Real-Time Insights</li>
+            <li>Simplified Operations</li>
+            <li>Executive Circle</li>
+            
+         
           </ul>
         </div>
 
@@ -65,7 +65,7 @@ function Footer() {
       </div>
 
 
-      <div className="mx-11 bg-black flex justify-center py-4 border-t-2">
+      <div className="mx-11 bg-gray-700 flex justify-center py-4 border-t-2">
         <h2 className="text-white text-center">
           © 2024 Help'n'Groww, Inc. All rights reserved
         </h2>

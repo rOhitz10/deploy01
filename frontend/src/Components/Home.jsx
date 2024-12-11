@@ -13,7 +13,7 @@ function Home() {
      <Navbar/>
      <Hero1/>
      <Hero4/>
-     {/* <Hero2/> */}
+     <Hero2/>
      {/* <Hero3/> */}
      {/* <Hero5/> */}
      <Footer/>

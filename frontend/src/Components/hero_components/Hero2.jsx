@@ -7,25 +7,28 @@ function Hero2() {
 
 
   return (
-    <div className="bg-indigo-600">
+    <div className="bg-slate-200">
     {/* First Section - Testimonial */}
     <section className="py-16 px-4 md:px-16 lg:px-32 bg-slate-200">
       <div className="flex flex-col lg:flex-row items-center lg:justify-between">
         {/* Left Column */}
         <div className="mb-8 lg:mb-0">
           <h1 className="text-3xl md:text-4xl font-bold text-green-700">
-            Everyone can grow with Brevo
+          EVERYONE HAS
+          DESIRES
           </h1>
           <ul className="space-y-2 mt-4 text-lg text-gray-700">
-            <li>➔ SMBs</li>
-            <li>Startups</li>
-            <li>Agencies</li>
-            <li>Ecommerce</li>
-            <li>Enterprise</li>
+            <li>Financial Freedom</li>
+            <li>Luxury Homes and Cars</li>
+            <li>Global Travel</li>
+            <li>Independence and Lifestyle
+Choices
+</li>
+           
           </ul>
-          <button className="mt-6 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800">
+          {/* <button className="mt-6 px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800">
             Read customer stories
-          </button>
+          </button> */}
         </div>
 
       <img className='rounded-2xl' src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="" />
@@ -33,12 +36,12 @@ function Hero2() {
     </section>
 
     {/* Second Section - Trusted Clients and Reviews */}
-    <section className="bg-indigo-600 text-white py-12 rounded-3xl">
+    <section className="bg-indigo-300 text-white py-12 rounded-3xl">
       <div className="text-center">
         <h2 className="text-3xl md:text-4xl font-bold">
           Over 500,000+ customers trust Help'n'Groww
         </h2>
-        <p className="mx-11 my-4  text-indigo-200">
+        <p className="mx-11 my-4 text-xl text-white">
           Businesses around the world have built better
           customer relationships.
         </p>
@@ -63,34 +66,37 @@ function Hero2() {
           <div className="text-4xl font-bold">4.5</div>
           <div className="text-yellow-300">★★★★★</div>
           <p className="mt-2 ">1600+ reviews</p>
-          <p className="mt-1 text-lg text-black">G2</p>
+          <p className="mt-1 text-lg text-black">Early Target Market</p>
         </div>
         {/* Review 3 */}
         <div className="text-center">
-          <div className="text-4xl font-bold">4.5</div>
+          <div className="text-4xl font-bold">4.2</div>
           <div className="text-yellow-300">★★★★★</div>
-          <p className="mt-2 ">1600+ reviews</p>
-          <p className="mt-1 text-lg text-black">Capterra</p>
+          <p className="mt-2 ">1600+ </p>
+          <p className="mt-1 text-lg text-black">Potential Market Share</p>
         </div>
       </div>
     </section>
 
    
 
-    <div className="bg-orange-500 rounded-t-3xl">
+    <div className="bg-[#dcb790] rounded-t-3xl">
       {/* Tools Integration Section */}
       <section className="py-16 px-4 md:px-16 lg:px-32 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-white">
-          Brevo connects to the tools you already use
-        </h2>
-        <p className="mt-4 text-lg text-green-200">
-          Brevo runs alongside more than 150 leading digital tools, from CRM to
-          CMS, ecommerce, and more.
+        <h2 className="text-3xl md:text-4xl font-bold text-[#1C1E87]">
+        GLOBAL
+        OPPORTUNITIES        </h2>
+        <p className="mt-4 text-lg ">
+        Help 'n' Groww  affiliates can
+expand their network across
+borders, connecting with
+businesses and individuals
+worldwide.
         </p>
 
         {/* Logos marque */}
-        <div className="flex flex-wrap justify-center items-center gap-6 mt-8">
-         <h1 className='text-3xl font-extrabold animate-marquee'>
+        <div className="flex flex-wrap justify-center items-center gap-6 mt-8 ">
+         <h1 className='text-3xl font-extrabold animate-bounce'>
           Help 'n' Groww
          </h1>
          
@@ -100,15 +106,15 @@ function Hero2() {
       </section>
 
       {/* Call-to-Action Section */}
-      <section className="bg-green-50 text-center py-12 rounded-t-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-green-700">
+      <section className="bg-[#F7F2ED] text-center py-12 rounded-t-3xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-black">
           Ready to get started?
         </h2>
-        <p className="mt-4 text-lg text-green-600">
+        <p className="mt-4 text-lg text-black">
           Create your free account.
         </p>
         <Link to='/signup'>
-        <button className="mt-6 px-6 py-2 bg-black text-white rounded-md hover:bg-gray-800">
+        <button className="mt-6 px-6 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-500 animate-pulse">
           Get join
         </button>
         </Link>

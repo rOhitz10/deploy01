@@ -6,7 +6,7 @@ function About() {
     <div>
      <Navbar/>
      
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-8 py-12 bg-gary-100">
         <div className="text-center">
           <h2 className="text-base font-semibold uppercase tracking-wider text-indigo-600">
             Home - About Our Company
@@ -15,8 +15,13 @@ function About() {
             Company that works for your business
           </p>
           <p className="mt-4 text-lg text-gray-500">
-            Make product discovery continuous. Validate the big-picture and
-            day-to-day product decisions with user insights
+         Your gateway to the
+ultimate Success Network,
+seamlessly connecting people,
+businesses, and opportunities
+globally. Revolutionizing networking
+with cutting-edge technology and
+limitless possibilities.
           </p>
           
         </div>
@@ -77,7 +82,7 @@ function About() {
                    
                       <div className="flex items-center space-x-4">
                         <div className="text-base font-medium text-gray-900">
-                          Mathio China, CEO at Atonce
+                          Ranjan Soni, CEO 
                         </div>
                       </div>
                    
