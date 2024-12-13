@@ -5,8 +5,8 @@ import { SlLogin } from "react-icons/sl";
 import { ImTree } from "react-icons/im";
 import { AiOutlineTeam } from "react-icons/ai";
 import { BsShieldLock } from "react-icons/bs";
-import { FaKeycdn } from "react-icons/fa6";
-import { GiNewspaper, GiGrowth } from "react-icons/gi";
+// import { FaKeycdn } from "react-icons/fa6";
+import {  GiGrowth } from "react-icons/gi";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 
 import { FaArrowDownWideShort,FaArrowUpShortWide } from "react-icons/fa6";
@@ -15,7 +15,7 @@ import { useAuth } from '../AuthContext';
 import {jwtDecode} from 'jwt-decode';
  
 
-const Card = ({ icon, title, onClick }) => {
+const Card = ({icon, title, onClick}) => {
   return (
     <div
       className="flex items-center justify-start px-4 py-2 w-full bg-white rounded-md shadow-sm transition-all duration-300"
@@ -29,18 +29,19 @@ const Card = ({ icon, title, onClick }) => {
 
 function Sidebar() {
   const [isProfileOpen, setProfileOpen] = useState(false);
-  const { logout, isAdmin } = useAuth();
+  const { logout } = useAuth();
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState("User"); // Fallback for userName
   
   const token = localStorage.getItem('token');
+  const isAdmin = localStorage.getItem('isAdmin')
+
 
   useEffect(() => {
     if (token) {
      
       try {
         const decoded = jwtDecode(token);
-        console.log(decoded.name)
         setUserId(decoded.epin);
         setUserName(decoded.name || "User"); // Use decoded userName or fallback
       } catch (error) {

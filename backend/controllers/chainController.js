@@ -242,11 +242,49 @@ exports.userUpdate = async (req, res) => {
 };
 
 
+// exports.getUsersAtSameLevel = async (req, res) => {
+//     const userId = req.user.id;
+
+//     try {
+//         // Fetch the current user to get their level
+//         const currentUser = await clientModel.findById(userId);
+//         if (!currentUser) {
+//             return res.status(404).json({ msg: "User not found." });
+//         }
+
+//         const userLevel = currentUser.level;
+
+//         // Find users at the same level, with 'halt' as false and 'activate' as true
+//         const usersAtSameLevel = await clientModel.find({
+//             level: userLevel,
+//             halt: false,
+//             activate: true,
+//             _id: { $ne: userId },  // Exclude the current user
+//         })
+//         .select('name email level levelUpdateAt') // Select relevant fields, including levelUpdateAt
+//         .sort({ levelUpdateAt: 1 }); // Sort by 'levelUpdateAt' in ascending order
+
+//         if (usersAtSameLevel.length === 0) {
+//             return res.status(404).json({
+//                 msg: `No active users found at level ${userLevel} with 'halt' set to false.`
+//             });
+//         }
+
+//         return res.status(200).json({
+//             msg: `Users at level ${userLevel} who are active and not halted, sorted by level update.`,
+//             data: usersAtSameLevel,
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ msg: "An error occurred.", error: error.message });
+//     }
+// };
+
 exports.getUsersAtSameLevel = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        // Fetch the current user to get their level
+        // Fetch the current user to get their level and sponsorId
         const currentUser = await clientModel.findById(userId);
         if (!currentUser) {
             return res.status(404).json({ msg: "User not found." });
@@ -254,19 +292,36 @@ exports.getUsersAtSameLevel = async (req, res) => {
 
         const userLevel = currentUser.level;
 
+        if (userLevel === 0) {
+            const sponsor = await clientModel.findOne({ epin: currentUser.sponsorId })
+                .select('name email level levelUpdateAt sponsorId epin'); // Select relevant fields
+                console.log("sponsor",sponsor)
+
+            if (!sponsor) {
+                return res.status(404).json({
+                    msg: "Sponsor not found for the current user.",
+                });
+            }
+
+            return res.status(200).json({
+                msg: "User is at level 0. Returning their sponsor information.",
+                data: sponsor,
+            });
+        }
+
         // Find users at the same level, with 'halt' as false and 'activate' as true
         const usersAtSameLevel = await clientModel.find({
             level: userLevel,
             halt: false,
             activate: true,
-            _id: { $ne: userId },  // Exclude the current user
+            _id: { $ne: userId }, // Exclude the current user
         })
-        .select('name email level levelUpdateAt') // Select relevant fields, including levelUpdateAt
-        .sort({ levelUpdateAt: 1 }); // Sort by 'levelUpdateAt' in ascending order
+           // Select relevant fields
+            .sort({ levelUpdateAt: 1 }); // Sort by '  .select('name email level levelUpdateAt')levelUpdateAt' in ascending order
 
         if (usersAtSameLevel.length === 0) {
             return res.status(404).json({
-                msg: `No active users found at level ${userLevel} with 'halt' set to false.`
+                msg: `No active users found at level ${userLevel} with 'halt' set to false.`,
             });
         }
 
@@ -276,6 +331,6 @@ exports.getUsersAtSameLevel = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ msg: "An error occurred.", error: error.message });
-    }
+        return res.status(500).json({ msg: "An error occurred.", error: error.message });
+    }
 };

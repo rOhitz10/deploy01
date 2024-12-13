@@ -48,8 +48,8 @@ function SendRequest({ Data }) {
           readOnly
           className="w-full p-2 font-bold  border-2  rounded-2xl rounded-r-none "
         />
-        <button
-          className="bg-sky-200 border-black relative right-4 py-2 px-4  border-2 rounded-2xl hover:bg-sky-300 "
+         <button
+          className="bg-indigo-300 text-indigo-900 font-semibold  relative right-4 py-2 px-4  border-2 rounded-2xl hover:bg-sky-300 "
           onClick={fetch}
         >
           Send

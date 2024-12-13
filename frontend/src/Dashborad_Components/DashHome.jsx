@@ -5,7 +5,7 @@ import Header from './Header';
 import { FaArrowCircleRight } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuth } from '../AuthContext';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import ReceiveRequest from './Sub_component/ReceiveRequest';
 import SendRequest from './Sub_component/SendRequest';
 
@@ -65,8 +65,6 @@ const DashHome = () => {
     };
   }, []);
 
-  // console.log("sponsorId", sponsorId);
-
   // send and receive requst
 const handleReceive = () => {
  setreceive(!receive);
@@ -79,7 +77,12 @@ const handleSend = async() => {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
     });
    
-    setsendData(ans.data.data[0]);
+    if (ans.data.data[0]) { 
+      setsendData(ans.data.data[0]);
+    }
+    else{
+      setsendData(ans.data.data);
+    }
   } catch (error) {
     const errorMessage = error.response?.data?.msg || ' Please try again.';
      setsendError(errorMessage)
@@ -87,7 +90,6 @@ const handleSend = async() => {
   } 
   setsend(!send);
 }
-
 
 
 
@@ -238,7 +240,7 @@ const handleSend = async() => {
             {sendError}
           </div>
         )}
-              {send && <SendRequest Data={senddata}/>}
+             {!error && <SendRequest Data={senddata}/>}
             </div>
           </div>
         </div>
