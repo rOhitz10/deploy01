@@ -5,7 +5,6 @@
 // import { FaArrowCircleRight } from 'react-icons/fa';
 // import axios from 'axios';
 // import { useAuth } from '../AuthContext';
-// // import { Navigate } from 'react-router-dom';
 // import ReceiveRequest from './Sub_component/ReceiveRequest';
 // import SendRequest from './Sub_component/SendRequest';
 
