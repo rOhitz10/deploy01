@@ -320,7 +320,7 @@ const DashHome = () => {
   const [sendData, setSendData] = useState(null); // Changed to null initially for clarity
   const [receiveCount, setReceiveCount] = useState('');
 
-  const sponsorId = localStorage.getItem('sponsorId');
+  const sponsorId = localStorage.getItem('epin');
   const textToCopy = `http://localhost:8000/r/signup/${sponsorId}`;
 
   // Handle copy to clipboard
