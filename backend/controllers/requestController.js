@@ -60,9 +60,9 @@ exports.sendRequest = async (req, res) => {
 
         // Ensure sender and receiver are at the same level
         
-        if (sender.level !== receiver.level) {
-            return res.status(400).json({ msg: "You can only send requests to users at the same level." });
-        }
+        // if (sender.level !== receiver.level) {
+        //     return res.status(400).json({ msg: "You can only send requests to users at the same level." });
+        // }
 
 
         // Check if the request already exists

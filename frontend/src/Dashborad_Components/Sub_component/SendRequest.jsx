@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-function SendRequest({ Data }) {
+function SendRequest({ sendData }) {
   const [showErr, setShowErr] = useState('');
 
-  const receiverId = Data?._id  || null; // Ensures `Data` is defined
-
+  const receiverId = sendData?._id  || null; // Ensures `Data` is defined
 
   const fetch = async () => {
     const token = localStorage.getItem('token');
@@ -16,8 +15,8 @@ function SendRequest({ Data }) {
     }
 
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/v1/send-request",
+       await axios.post(
+        "/api/v1/send-request",
         { receiverId },
         {
           headers: {
@@ -25,12 +24,13 @@ function SendRequest({ Data }) {
           },
         }
       );
+      
     
       // Optionally handle success state here
     } catch (error) {
       const errorMessage = error.response?.data?.msg || 'Request failed. Please try again.';
       setShowErr(errorMessage);
-      console.error('Error while sending request:', error);
+      console.log('Error while sending request:', error);
     }
   };
 
@@ -43,12 +43,12 @@ function SendRequest({ Data }) {
         {/* Display name for clarity, but make input readOnly */}
         <input
           
-          placeholder={Data? Data.name:"no user for send request" }
+          placeholder={sendData? sendData.name:"no user for send request" }
           
           readOnly
-          className="w-full p-2 font-bold  border-2  rounded-2xl rounded-r-none "
+          className="w-full p-2 font-bold  border-2   rounded-2xl rounded-r-none "
         />
-         <button
+        <button
           className="bg-indigo-300 text-indigo-900 font-semibold  relative right-4 py-2 px-4  border-2 rounded-2xl hover:bg-sky-300 "
           onClick={fetch}
         >
