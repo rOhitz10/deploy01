@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FaSearch, FaRedoAlt, FaUserCircle, FaArrowCircleRight } from 'react-icons/fa';
-import { LuArrowUpSquare } from "react-icons/lu";
 import Sidebar from './Sidebar';
 import Header from './Header';
 import axios from 'axios';

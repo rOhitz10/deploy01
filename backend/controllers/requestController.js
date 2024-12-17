@@ -23,47 +23,63 @@ function getRequiredLinksForLevel(level) {
 }
  
 
+// newController
 exports.sendRequest = async (req, res) => {
-    const { receiverId } = req.body ;
-
+    const { receiverId } = req.body;
     const senderId = req.user.id;
 
+    // Validate input data
     if (!receiverId) {
         return res.status(400).json({ msg: "Receiver ID is required." });
     }
 
-    if(senderId === receiverId)
-        {
-            return res.status(400).json({
-                msg:"receiverId should be different from senderId"
-            })
-        }
+    // Ensure sender and receiver are not the same
+    if (senderId === receiverId) {
+        return res.status(400).json({
+            msg: "Receiver ID should be different from Sender ID.",
+        });
+    }
 
     try {
-        // Fetch the sender and receiver users
-        const sender = await Client.findById(senderId);
-        const receiver = await Client.findById(receiverId);
-        
-         // Ensure sender is activated
-         if (!sender.activate) {
-            return res.status(400).json({ msg: "You need to activate your account to send requests." });
-        }
-        // Ensure receiver is activated
-        if (!receiver.activate) {
-            return res.status(400).json({ msg: "The receiver must activate their account to receive requests." });
-        }
-
+        // Fetch sender and receiver details
+        const [sender, receiver] = await Promise.all([
+            Client.findById(senderId),
+            Client.findById(receiverId),
+        ]);
 
         if (!sender || !receiver) {
             return res.status(404).json({ msg: "Sender or Receiver not found." });
         }
 
-        // Ensure sender and receiver are at the same level
-        
-        // if (sender.level !== receiver.level) {
-        //     return res.status(400).json({ msg: "You can only send requests to users at the same level." });
-        // }
+        // Ensure sender is activated
+        if (!sender.activate) {
+            return res.status(400).json({ msg: "You need to activate your account to send requests." });
+        }
 
+        // Ensure receiver is activated
+        if (!receiver.activate) {
+            return res.status(400).json({ msg: "The receiver must activate their account to receive requests." });
+        }
+
+        // Ensure sender and receiver are at the same level
+        if (sender.level !== receiver.level) {
+            return res.status(400).json({ msg: "You can only send requests to users at the same level." });
+        }
+
+        // Check how many requests the receiver has already received
+        const receiverRequestsCount = await RequestModel.countDocuments({
+            receiverId,
+            status: 'pending',
+        });
+
+        // Limit for requests a receiver can have before accepting them
+        const requestLimit = 1; // Adjust this limit as needed
+
+        if (receiverRequestsCount >= requestLimit) {
+            return res.status(400).json({
+                msg: `The receiver has already received ${receiverRequestsCount} pending request(s). They must accept one before receiving more.`,
+            });
+        }
 
         // Check if the request already exists
         const existingRequest = await RequestModel.findOne({ senderId, receiverId });
@@ -75,13 +91,15 @@ exports.sendRequest = async (req, res) => {
         const newRequest = new RequestModel({ senderId, receiverId });
 
         const savedRequest = await newRequest.save();
-        return res.status(201).json({ msg: "Request sent successfully.", data: savedRequest });
+        return res.status(201).json({
+            msg: "Request sent successfully.",
+            data: savedRequest,
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ msg: "An error occurred.", error: error.message });
     }
 };
-
 
 
 
