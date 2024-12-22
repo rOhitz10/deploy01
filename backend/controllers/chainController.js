@@ -203,7 +203,7 @@ exports.getAllDownlineCount = async (req, res) => {
 // update users data model
 
 exports.userUpdate = async (req, res) => {
-    const { epin } = req.user.epin; // Assuming EPIN is stored in the token
+    const  epin  = req.user.epin; // Assuming EPIN is stored in the token
     const {
         accountNo,
         accountHolderName,
@@ -213,7 +213,8 @@ exports.userUpdate = async (req, res) => {
         googlePay,
         phonePe
     } = req.body; // New fields to update
-
+  
+   
     try {
         // Find the user by EPIN
         const user = await clientModel.findOne({ epin });
@@ -251,9 +252,10 @@ exports.userUpdate = async (req, res) => {
 //         if (!currentUser) {
 //             return res.status(404).json({ msg: "User not found." });
 //         }
-
+        
+        
 //         const userLevel = currentUser.level;
-
+        
 //         // Find users at the same level, with 'halt' as false and 'activate' as true
 //         const usersAtSameLevel = await clientModel.find({
 //             level: userLevel,
@@ -261,8 +263,16 @@ exports.userUpdate = async (req, res) => {
 //             activate: true,
 //             _id: { $ne: userId },  // Exclude the current user
 //         })
+
 //         .select('name email level levelUpdateAt') // Select relevant fields, including levelUpdateAt
 //         .sort({ levelUpdateAt: 1 }); // Sort by 'levelUpdateAt' in ascending order
+        
+//         // if (userLevel === 0) {
+//         //     return res.status(200).json({
+//         //         msg: 'hoo gya',
+//         //         data: currentUser.sponsorId,
+//         //     })
+//         // }
 
 //         if (usersAtSameLevel.length === 0) {
 //             return res.status(404).json({
@@ -334,3 +344,65 @@ exports.getUsersAtSameLevel = async (req, res) => {
         return res.status(500).json({ msg: "An error occurred.", error: error.message });
     }
 };
+
+const getTotalActiveDownlines = async (sponsorId) => {
+    // Fetch immediate downlines where activate is true
+    const downlines = await clientModel.find({ sponsorId, activate: true }).select('epin name number email'); 
+    let totalActiveDownlines = downlines.length; // Count immediate active downlines
+
+    // Recursively calculate active downlines for each child
+    for (const downline of downlines) {
+        const nestedActiveDownlines = await getTotalActiveDownlines(downline.epin); // Recursive call
+        totalActiveDownlines += nestedActiveDownlines; // Accumulate the count
+    }
+
+    return totalActiveDownlines;
+};
+
+exports.getActivateDownaline = async(req,res) =>{
+    const epin = req.user.epin
+    if (!epin) {
+        return res.status(400).json({ msg: "sponsorId is required" });
+    }
+
+    try {
+        const allActiveDownlinesCount = await getAllDownlinesRecursive(epin);
+        
+        if (allActiveDownlinesCount.length === 0) {
+            return res.status(404).json({ msg: "No Activate downlines found " });
+        }
+
+        return res.status(200).json({
+            len:allActiveDownlinesCount.length,
+            data: allActiveDownlinesCount });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "An error occurred", error: error.message });
+    }
+};
+
+// exports.getUserWithActivateStatus = async(req,res) =>{
+//     try {
+//         const totalActiveUser = await clientModel.find({activate:true})
+//         .select ('name email number level activate')
+
+//         if(totalActiveUser.length === 0){
+//             return res.status(404).json({
+//                 success:false,
+//                 msg:"There is no active user"
+//             })
+//         }
+//         return res.status(200).json({
+//             success:true,
+//             msg:"User with active status",
+//             count:totalActiveUser.length,
+//             data:totalActiveUser
+//         })
+//     } catch (error) {
+//         return res.status(500).json({
+//             success:false,
+//             msg:"Error while fetching active users",
+//             err:error.message
+//         })
+//     }
+// }

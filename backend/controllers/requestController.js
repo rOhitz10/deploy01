@@ -62,9 +62,9 @@ exports.sendRequest = async (req, res) => {
         }
 
         // Ensure sender and receiver are at the same level
-        if (sender.level !== receiver.level) {
-            return res.status(400).json({ msg: "You can only send requests to users at the same level." });
-        }
+        // if (sender.level !== receiver.level) {
+        //     return res.status(400).json({ msg: "You can only send requests to users at the same level." });
+        // }
 
         // Check how many requests the receiver has already received
         const receiverRequestsCount = await RequestModel.countDocuments({
@@ -131,10 +131,10 @@ exports.acceptRequest = async (req, res) => {
 
 
 
-        if (sender.level !== receiver.level) {
-            return res.status(400).json({ msg: "You can only accept requests from users at the same level." });
+        // if (sender.level !== receiver.level) {
+        //     return res.status(400).json({ msg: "You can only accept requests from users at the same level." });
 
-        }
+        // }
 
         request.status = 'accepted';
         request.updatedAt = Date.now();
@@ -178,11 +178,11 @@ exports.rejectRequest = async (req, res) => {
 
     try {
 
-         // Ensure sender is activated
-         if (!userId.activate) {
-            return res.status(400).json({ msg: "You need to activate your account to delete requests." });
-        }
-        
+       // Ensure sender is activated
+       const user = await Client.findById(userId)
+       if (user.activate === false) {
+           return res.status(400).json({ msg: "You need to activate your account to delete requests." });
+       } 
 
         const request = await RequestModel.findById(requestId);
         if (!request) {
@@ -354,3 +354,35 @@ exports.sendRequestToLeveledUpUser = async (req, res) => {
     }
 };
 
+exports.clientFinancialDetails = async(req,res) =>{
+
+    const  epin  = req.body.epin;
+    
+    try {
+        
+        const client = await Client.findOne( epin ).select(
+          "number accountNo accountHolderName ifscCode bankName branchName googlePay phonePe"
+        );
+    
+        if (!client) {
+          return res.status(404).json({ message: "Client not found" });
+        }
+    
+        res.status(200).json({
+          phoneNumber: client.number,
+          financialDetails: {
+            accountNo: client.accountNo,
+            accountHolderName: client.accountHolderName,
+            ifscCode: client.ifscCode,
+            bankName: client.bankName,
+            branchName: client.branchName,
+            googlePay: client.googlePay,
+            phonePe: client.phonePe,
+          },
+        });
+      } catch (error) {
+        console.log(error,"hhhhh");
+        
+        res.status(500).json({ message: "Error fetching client details", error });
+      }
+    };

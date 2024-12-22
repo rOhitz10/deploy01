@@ -1,18 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
+import  { useEffect, useState, useRef } from 'react';
 import { BsShieldLock } from 'react-icons/bs';
-import { FaArrowCircleRight } from 'react-icons/fa';
-
+import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa'; // Added FaArrowCircleLeft
+import axios from 'axios';
 import AdminSidebar from './AdminSidebar';
+import { useAuth } from '../AuthContext';
 
 const DashHome = () => {
+  const { logout } = useAuth();
+
   const [data, setData] = useState({
     totalCount: 0,
     referrals: 0,
     epins: 0,
   });
-  const [activeUsers, setActiveUser] = useState(0);
-  const [menuBar, setMenuBar] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  const [menuBar, setMenuBar] = useState(false);
+  const sponsorId = localStorage.getItem('epin');
   const sidebarRef = useRef(null);
 
   const handleClick = () => {
@@ -32,6 +37,51 @@ const DashHome = () => {
     };
   }, [handleOutsideClick]);
 
+  const fetchData = async () => {
+    if (sponsorId) {
+      try {
+        const response = await axios.get("/api/v1/count-all-downline", {
+          params: { sponsorId },
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        });
+        
+        const res = await axios.get("/api/v1/count-all-direct-downline", {
+          params: { sponsorId },
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        });
+        const ans = await axios.get("/api/v1/total-epins",{
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        })
+        
+        // Set the data in one go to prevent multiple state updates
+        setData({
+          totalCount: response.data.totalCount,
+          referrals: res.data.totalCount,
+          epins: ans.data.count,  
+        });
+        console.log(data.epins,"ijfmnkv",ans.data);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          logout();
+        }
+        setError(`Error fetching data: ${error.response ? error.response.data.message : error.message}`);
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [sponsorId]);
+
+  // Loading and error handling
+  if (loading) return <div className="p-8 text-center">Loading...</div>;
+  if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -47,12 +97,14 @@ const DashHome = () => {
         {/* Toggle Button */}
         <button
           aria-label="Toggle sidebar"
-          className={`absolute m-4 lg:hidden rounded-full z-20 ${
-            menuBar ? 'hidden' : ''
-          }`}
+          className={`absolute m-4 lg:hidden rounded-full z-20 ${menuBar ? 'hidden' : ''}`}
           onClick={handleClick}
         >
-          <FaArrowCircleRight size={30} className="text-gray-600" />
+          {menuBar ? (
+            <FaArrowCircleLeft size={30} className="text-gray-600" />
+          ) : (
+            <FaArrowCircleRight size={30} className="text-gray-600" />
+          )}
         </button>
 
         {/* Dashboard Container */}
@@ -77,7 +129,7 @@ const DashHome = () => {
             <div className="bg-white p-6 rounded-lg shadow-md flex items-center justify-between">
               <div>
                 <h2 className="text-sm text-gray-500">ACTIVE USERS</h2>
-                <span className="text-xl font-semibold">{activeUsers}</span>
+                <span className="text-xl font-semibold">{data.totalCount}</span>
               </div>
               <div className="bg-green-100 p-3 rounded-full text-green-500">
                 👥
