@@ -39,6 +39,7 @@ function MyTeam() {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }, 
           });
          setData(res.data.data);
+         console.log(res.data.data);
          
         } catch (error) {
           setError('Error fetching data');
@@ -94,7 +95,7 @@ function MyTeam() {
       <h1 className="text-2xl font-semibold">My Team</h1>
 
       {Data.map((data) => (
-       <div className="my-8 ">
+       <div className="my-8">
         <UserCard  user={data} />
        </div>
       ))}

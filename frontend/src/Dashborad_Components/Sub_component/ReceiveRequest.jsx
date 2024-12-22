@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
-function ReceiveRequest({ setReceiveCount }) {
-  const [requests, setRequests] = useState([]);
-  const userId = localStorage.getItem('sponsorId'); // Get sponsorId from localStorage for API usage.
+function ReceiveRequest({ Data, Count = 0 }) {
+  const [requests, setRequests] = useState(Data);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const userId = localStorage.getItem('epin');
 
   // Function to handle acceptance of a request
   const handleAccept = async (requestId) => {
     try {
       const response = await axios.put(
         `/api/v1/accept/${requestId}`,
-        {}, // Empty body for PUT request
+        {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
       const newStatus = response.data.data.status;
 
-      // Update the status in the local requests array
       setRequests((prevRequests) =>
         prevRequests.map((request) =>
           request._id === requestId ? { ...request, status: newStatus } : request
         )
       );
+      setErrorMessage(null); // Clear any previous errors
     } catch (error) {
+      setErrorMessage('Failed to accept the request. Please try again.');
       console.error('Failed to accept request:', error);
     }
   };
@@ -33,101 +37,80 @@ function ReceiveRequest({ setReceiveCount }) {
     try {
       const response = await axios.put(
         `/api/v1/reject/${requestId}`,
-        {}, // Empty body for PUT request
+        {},
         {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
       const newStatus = response.data.data.status;
 
-      // Update the status in the local requests array
       setRequests((prevRequests) =>
         prevRequests.map((request) =>
           request._id === requestId ? { ...request, status: newStatus } : request
         )
       );
+      setErrorMessage(null); // Clear any previous errors
     } catch (error) {
+      setErrorMessage('Failed to reject the request. Please try again.');
       console.error('Failed to reject request:', error);
     }
   };
 
-  // Fetch pending requests from the server
-  useEffect(() => {
-    const fetchRequests = async () => {
-      try {
-        const response = await axios.get('/api/v1/my-requests', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-        const requestsData = response.data.data;
-        setRequests(requestsData);
-        
-
-        // Update pending requests count in the parent component
-        const pendingCount = requestsData.filter((req) => req.status === 'pending').length;
-        setReceiveCount(pendingCount);
-        
-      } catch (error) {
-        console.error('Failed to fetch requests:', error);
-      }
-    };
-    
-    fetchRequests();
-  }, [setReceiveCount]); // Dependency ensures the count updates properly.
-  
   return (
-    <div className="overflow-y-auto h-80 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-      {/* Render the requests */}
-      {requests.map((data) => (
-        <div
-          key={data._id}
-          className="flex items-center justify-between py-4 mb-4 border-b-2 border-gray-200 border-dotted transition-all duration-300 hover:bg-gray-50"
-        >
-          <div className="flex items-center space-x-4 px-4">
-            <div className="py-2 min-w-[150px] text-black text-center border-2 border-gray-500 rounded-md bg-gray-100">
-              {data.senderId.name}
+    <div className="overflow-y-auto h-80 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 p-4">
+      {errorMessage && (
+        <div className="text-red-500 text-sm bg-red-100 border border-red-500 p-2 rounded-md mb-4">
+          {errorMessage}
+        </div>
+      )}
+
+      {requests.length > 0 ? (
+        requests.map((request) => (
+          <div
+            key={request._id}
+            className="flex items-center justify-between p-4 mb-4 bg-white shadow hover:shadow-green-300 rounded-lg transition-all duration-300 hover:shadow-md"
+          >
+            <div className="flex items-center space-x-4">
+              <div className="text-sm font-medium text-gray-700">
+                {request.senderId?.name || 'Unknown Sender'}
+              </div>
             </div>
 
             <div className="flex space-x-3">
-              {/* Accept button */}
-              {data.status === 'pending' && (
-                <button
-                  className="py-2 px-4 border-2 rounded-xl hover:bg-green-500 hover:text-white border-green-500 transition duration-200"
-                  onClick={() => handleAccept(data._id)}
-                >
-                  Accept
-                </button>
+              {request.status === 'pending' && (
+                <>
+                  <button
+                    className="flex items-center px-3 py-1 text-sm font-medium text-green-600 border border-green-500 rounded hover:bg-green-500 hover:text-white transition"
+                    onClick={() => handleAccept(request._id)}
+                  >
+                    <FaCheck className="mr-1" /> Accept
+                  </button>
+                  <button
+                    className="flex items-center px-3 py-1 text-sm font-medium text-red-600 border border-red-500 rounded hover:bg-red-500 hover:text-white transition"
+                    onClick={() => handleReject(request._id)}
+                  >
+                    <FaTimes className="mr-1" /> Reject
+                  </button>
+                </>
               )}
 
-              {/* Reject button */}
-              {data.status === 'pending' && (
-                <button
-                  className="py-2 px-4 border-2 rounded-xl hover:bg-red-500 hover:text-white border-red-500 transition duration-200"
-                  onClick={() => handleReject(data._id)}
-                >
-                  Reject
-                </button>
-              )}
-
-              {/* Show accepted/rejected status */}
-              {data.status === 'accepted' && (
-                <span className="py-2 px-4 text-green-500 border-2 border-green-500 rounded-md">
+              {request.status === 'accepted' && (
+                <span className="px-3 py-1 text-sm font-medium text-green-600 border border-green-500 rounded">
                   Accepted
                 </span>
               )}
-              {data.status === 'rejected' && (
-                <span className="py-2 px-4 text-red-500 border-2 border-red-500 rounded-md">
+
+              {request.status === 'rejected' && (
+                <span className="px-3 py-1 text-sm font-medium text-red-600 border border-red-500 rounded">
                   Rejected
                 </span>
               )}
             </div>
           </div>
-        </div>
-      ))}
-
-      {/* Handle empty state */}
-      {requests.length === 0 && (
-        <div className="text-center text-gray-500 mt-4">
-          <span>No requests available.</span>
+        ))
+      ) : (
+        <div className="text-center text-gray-500">
+          <p>No requests available.</p>
         </div>
       )}
     </div>

@@ -9,18 +9,24 @@ const LevelCard = ({ node, grandChildCount }) => {
   const { name, epin, children } = node;
 
   return (
-    <div className="flex border-2 shadow-lg p-2 min-w-full h-52">
-      <div className="flex flex-col justify-center items-center px-6 border-r-2">
-        <h1>LEVEL</h1>
-        <h2>{children ? children.length : 0} Active</h2>
-        <h2>{grandChildCount} children</h2>
-        <p className="text-gray-500">{epin}</p>
+    <div className="flex justify-center items-center border-2 shadow-lg px-2 min-w-full h-52">
+        <div>
+       <div className="bg-green-500 flex flex-col justify-center items-center text-white rounded-full p-4 mb-">
+                  <FaUserCircle size={40} />
+                  <h2>{name}</h2>
+                </div>
+        <p className="text-gray-500 text-center">{epin}</p>
+        </div>
+      <div className="flex flex-col justify-center items-center px-4">
+        <h2>Level</h2>
+        <h2>{children ? children.length : 0}Active</h2>
+        <h2>{grandChildCount}children</h2>
       </div>
-      <div className={`mt-4 flex ${children.length > 2 ? 'overflow-x-scroll rounded-lg shadow-md scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200' : ''} w-[85%]`}>
+      <div className={`flex border-l-4 ${children.length > 2 ? 'overflow-x-scroll rounded-lg shadow-md scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200' : ''} w-[85%]`}>
         {children.length > 0 ? (
           children.map((child) => (
             <div className="flex flex-col mx-8 justify-center items-center" key={child._id}>
-              <span className="flex justify-center items-center bg-green-500 text-white rounded-full p-4">
+              <span className="flex justify-center items-center bg-green-400 text-white rounded-full p-4">
                 <FaUserCircle size={40} />
               </span>
               <h1>{child.name}</h1>
@@ -78,8 +84,9 @@ function LevelTree() {
           { receiverId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
+        console.log(Updatelevel, 'Level-up request sent successfully');
       } catch (error) {
-        console.error("update level fail:",error);
+        console.log("update level fail:",error);
       }
     }
   }
@@ -92,7 +99,7 @@ function LevelTree() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setData(Array.isArray(res.data.data) ? res.data.data : []);
-
+        
         const levelUp = await axios.get('/api/v1/get-first-levelledUp', {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -148,7 +155,7 @@ function LevelTree() {
 
         <Header />
 
-         <div className="  p-6 ">
+        <div className="  p-6 ">
         <h1 className="text-2xl font-semibold mb-8">Level Tree</h1>
           <div className="flex space-x-4 mb-6">
             <input
@@ -184,25 +191,7 @@ function LevelTree() {
               </div>
             ) : (<h1>No User Found</h1>)
           }
-
-          {/* {
-            levelledUp ? (
-              <div className="flex flex-col items-center bg-slate-300 rounded-2xl p-4">
-                <div className="bg-green-500 text-white rounded-full p-4 mb-2">
-                  <FaUserCircle size={50} />
-                </div>
-                <p className="font-semibold text-gray-700">Level: {levelledUp.level}</p>
-              <p className="font-semibold text-gray-700">Name: {levelledUp.name}</p>
-
-              </div>
-            ) : (<h1>No User Found</h1>)
-          }  */}
-
-          {/* <div className="flex justify-end">
-            <button className="p-3" onClick={handleUpdatelevel}>
-              <LuArrowUpSquare size={40} />
-            </button>
-          </div> */}
+         
         </div>
 
         {filteredData.map((node) => (

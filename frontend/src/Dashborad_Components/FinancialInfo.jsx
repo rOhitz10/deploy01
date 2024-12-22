@@ -48,7 +48,7 @@ export default function FinancialInfo() {
     try {
       // Assuming EPIN is stored in token
       const token = localStorage.getItem("token");
-
+    
       const response = await axios.put(
         "/api/v1/update-user",
         { ...formData },
@@ -60,6 +60,7 @@ export default function FinancialInfo() {
       );
 
       // Handle successful response
+      console.log("User updated successfully:", response.data);
       alert("User information updated successfully!");
     } catch (error) {
       // Handle error
