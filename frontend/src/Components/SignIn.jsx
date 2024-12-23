@@ -1,11 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link} from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Import the Eye Icons
 
 const SignIn = () => {
-  const navigate = useNavigate();
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({

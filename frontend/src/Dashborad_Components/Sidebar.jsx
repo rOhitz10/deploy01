@@ -105,12 +105,12 @@ function Sidebar() {
 
       <div className="w-full space-y-4">
         { role &&
-          <Link to={`/admin/dashboard`}>
+          <Link to="/admin/dashboard">
           <Card icon={<IoHomeOutline className="text-lg" />} title="Admin Panel" />
         </Link>
         }
         <h2 className="text-xs font-semibold text-gray-500 px-4">MAIN</h2>
-        <Link to={`/dashboard`}>
+        <Link to="/dashboard">
           <Card icon={<IoHomeOutline className="text-lg" />} title="Dashboard" />
         </Link>
         
