@@ -1,31 +1,40 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     const token = localStorage.getItem('token');
     const expiry = localStorage.getItem('expiry');
     return token && expiry && Date.now() < Number(expiry);
   });
 
-  const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'false');
+  const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'true');
 
-  const login = (token, expiryTime, epin) => {
-        // if (typeof expiryTime !== 'number' || expiryTime <= 0) {
-        //   console.error("Invalid expiry time");
-        //   return;
-        // }
+  const login = (token, sponsorId) => {
+   
 
     localStorage.setItem('token', token);
-    localStorage.setItem('expiry', Date.now() + expiryTime * 1000);
-    localStorage.setItem('epin', epin);
+    localStorage.setItem('sponsorId', sponsorId);
 
-    if (epin === 'HNG00001') {
-      setAdmin(true);
-      localStorage.setItem('isAdmin', true);
-    }else{   
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.role === 'admin') {
+        setAdmin(true);
+        localStorage.setItem('isAdmin', 'true');
+        navigate('/admin/dashboard');
+      } else {
         setIsAuthenticated(true);
+        localStorage.setItem('isAdmin', 'false');
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Failed to decode token:', error);
+      logout();
     }
   };
 
@@ -33,26 +42,12 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setAdmin(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('expiry');
     localStorage.removeItem('sponsorId');
     localStorage.removeItem('isAdmin');
+    navigate('/login');
   };
 
-//   useEffect(() => {
-//     const checkToken = () => {
-//       const token = localStorage.getItem('token');
-//       const expiry = localStorage.getItem('expiry');
 
-//       if (!token || !expiry || Date.now() > Number(expiry)) {
-//         logout();
-//       }
-//     };
-
-//     checkToken();
-//     const interval = setInterval(checkToken, 1000 * 60);
-
-//     return () => clearInterval(interval);
-//   }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, isAdmin, login, logout }}>

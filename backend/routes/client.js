@@ -36,7 +36,7 @@ router.put("/update-user", authMiddleware, userUpdate);
 
 // router.get('/get-activated-users',getUserWithActivateStatus)
 router.get('/get-financial-detail',authMiddleware,clientFinancialDetails)
-router.get('/total-epins',authMiddleware,totalGeneratedEpins)
+router.get('/total-epins',authMiddleware,isAdmin,totalGeneratedEpins)
 router.get('/get-all-users',authMiddleware,totalUsers)
 router.get('/all-active-downline',authMiddleware,getActivateDownaline)
 

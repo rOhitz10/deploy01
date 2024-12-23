@@ -31,9 +31,9 @@ function Sidebar() {
   const { logout } = useAuth();
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState("User"); // Fallback for userName
-  
+  const [role,setrole] = useState(true)
+
   const token = localStorage.getItem('token');
-  const isAdmin = localStorage.getItem('isAdmin')
 
 
   useEffect(() => {
@@ -41,9 +41,16 @@ function Sidebar() {
      
       try {
         const decoded = jwtDecode(token);
+     
         setUserId(decoded.epin);
         setUserName(decoded.name || "User"); // Use decoded userName or fallback
-      } catch (error) {
+        if(decoded.role === 'admin'){
+          setrole(true);
+        }
+        else{
+          setrole(false)
+        }
+      }  catch (error) {
         console.error("Failed to decode token:", error);
       }
     }
@@ -97,7 +104,7 @@ function Sidebar() {
       </div>
 
       <div className="w-full space-y-4">
-        { isAdmin &&
+        { role &&
           <Link to={`/admin/dashboard`}>
           <Card icon={<IoHomeOutline className="text-lg" />} title="Admin Panel" />
         </Link>
@@ -143,7 +150,7 @@ function Sidebar() {
 
       <button
         className="flex items-center my-6 py-6 mx-4 text-gray-700 hover:text-blue-600"
-        onClick={handleLogout} // Attach handleLogout here
+        onClick={handleLogout} 
         >
         <LiaSignOutAltSolid className="w-6 h-6 mr-2" />
         <span>Sign Out</span>
