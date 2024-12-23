@@ -30,15 +30,7 @@ const SignIn = () => {
     
     try {
       const res = await axios.post("/api/v1/user-login", { ...data });
-      login(res.data.token, '3600000', res.data.user.epin);
-
-      // Get 'isAdmin' from localStorage and compare it properly
-      const isAdmin = localStorage.getItem("isAdmin");
-      if (isAdmin) {
-        navigate("/admin/dashboard");
-      } else {
-        navigate('/dashboard');
-      }
+      login(res.data.token, res.data.user.epin);    
       
     } catch (err) {
       // Log error message directly from the response
