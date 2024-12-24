@@ -26,7 +26,7 @@ const DashHome = () => {
 
   const handleOutsideClick = (event) => {
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      setMenuBar(false); // Close the sidebar if clicked outside
+      setMenuBar(false)
     }
   };
 
@@ -59,7 +59,6 @@ const DashHome = () => {
           referrals: res.data.totalCount,
           epins: ans.data.count,  
         });
-        console.log(data.epins,"ijfmnkv",ans.data);
       } catch (error) {
         if (error.response && error.response.status === 401) {
           logout();
