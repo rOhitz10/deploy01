@@ -15,11 +15,11 @@ export const AuthProvider = ({ children }) => {
 
   const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'true');
 
-  const login = (token, sponsorId) => {
+  const login = (token, epin) => {
    
 
     localStorage.setItem('token', token);
-    localStorage.setItem('sponsorId', sponsorId);
+    localStorage.setItem('epin', epin);
 
     try {
       const decoded = jwtDecode(token);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setAdmin(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('sponsorId');
+    localStorage.removeItem('epin');
     localStorage.removeItem('isAdmin');
     navigate('/login');
   };
