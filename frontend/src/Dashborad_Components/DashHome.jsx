@@ -214,8 +214,8 @@ const DashHome = () => {
           </div>
 
           {/* Epin Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
+          <div className="grid grid-cols-1  gap-6">
+            {/* <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between">
               <div>
                 <h2 className="text-sm text-gray-500">EPINS</h2>
                 <span className="text-xl font-semibold">{data.epins}</span>
@@ -223,11 +223,11 @@ const DashHome = () => {
               <div className="bg-blue-100 p-3 rounded-full text-blue-500">
                 <BsShieldLock />
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-white p-4 rounded-lg shadow-md text-center">
               <h2 className="text-sm text-gray-500">CURRENT STATUS</h2>
-              <span className="text-xl font-semibold text-blue-500">{data.currentStatus}</span>
+              <span className="text-xl font-semibold text-blue-500">Activated</span>
             </div>
           </div>
 
