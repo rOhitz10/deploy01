@@ -54,7 +54,7 @@ function Sidebar() {
         console.error("Failed to decode token:", error);
       }
     }
-  }, []);
+  }, [token]);
   
   
  
@@ -127,10 +127,10 @@ function Sidebar() {
           <Card icon={<AiOutlineTeam className="text-lg" />} title="My Team" />
         </Link>
 
-        <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">EPIN</h2>
-        <Link to={`/dashboard/myepins`}>
+        {/* <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">EPIN</h2> */}
+        {/* <Link to={`/dashboard/myepins`}>
           <Card icon={<BsShieldLock className="text-lg" />} title="Request Epins" />
-        </Link>
+        </Link> */}
         <Link to={`/dashboard/Levelupdate`}>
           <Card icon={< GiGrowth className="text-lg" />} title="Level Update" />
         </Link>
