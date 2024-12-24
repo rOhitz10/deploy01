@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from "react-router-dom";
-import { IoHomeOutline, IoTicketOutline } from "react-icons/io5";
+import { Link} from "react-router-dom";
+import { IoHomeOutline } from "react-icons/io5";
 import { SlLogin } from "react-icons/sl";
 import { ImTree } from "react-icons/im";
 import { AiOutlineTeam } from "react-icons/ai";

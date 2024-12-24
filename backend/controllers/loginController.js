@@ -36,7 +36,7 @@ exports.loginUser = async (req, res) => {
         
         const token = jwt.sign(
 
-            { id: user._id, epin: user.epin, sponsorId: user.sponsorId, name:user.name, level:user.level,status:user.activate }, // Include sponsorId here
+            { id: user._id, epin: user.epin, sponsorId: user.sponsorId, name:user.name, level:user.level,status:user.activate, role:user.role }, 
 
 
             process.env.JWT_SECRET, 
