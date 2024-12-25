@@ -60,7 +60,7 @@ anyone looking to succeed!"
         />
         <Card
          icon={<Avatar src="https://thumbs.dreamstime.com/b/profile-picture-caucasian-male-employee-posing-office-happy-young-worker-look-camera-workplace-headshot-portrait-smiling-190186649.jpg" size="70" round={true} />}
-          title="Ranjan Soni"
+          title="kyle redson"
           description="With Help'n'groww’s trust and
 innovative system, I achieved
 more than I ever imagined.
@@ -79,7 +79,7 @@ willing to dream big."
         />
         <Card
         icon={<Avatar src="https://www.shutterstock.com/image-photo/profile-picture-smiling-successful-young-260nw-2040223583.jpg" size="70" round={true} />}
-          title="Darshan Singh"
+          title="bruce antonyo"
           description="Access luxury perks and exclusive benefits
 as you expand your network influence."
         />
