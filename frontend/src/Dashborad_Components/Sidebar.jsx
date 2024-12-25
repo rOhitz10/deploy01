@@ -147,14 +147,9 @@ function Sidebar() {
       </div>
 
       {/* Sign Out Button */}
-
-      <button
-        className="flex items-center my-6 py-6 mx-4 text-gray-700 hover:text-blue-600"
-        onClick={handleLogout} 
-        >
-        <LiaSignOutAltSolid className="w-6 h-6 mr-2" />
-        <span>Sign Out</span>
-      </button>
+      <Link to="/">
+        <Card icon={<LiaSignOutAltSolid className="w-6 h-6 mr-2" />} title="Sign Out" onClick={handleLogout} />   
+          </Link>
           
         </div>
     </div>

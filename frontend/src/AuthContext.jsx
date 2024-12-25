@@ -24,8 +24,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const decoded = jwtDecode(token);
       if (decoded.role === 'admin') {
+        setIsAuthenticated(true);
         setAdmin(true);
         localStorage.setItem('isAdmin', 'true');
+        console.log(decoded.role,"dscds");
         navigate('/admin/dashboard');
       } else {
         setIsAuthenticated(true);
