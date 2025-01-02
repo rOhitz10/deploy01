@@ -93,9 +93,10 @@ const DashHome = () => {
       const ans = await axios.get('/api/v1/get-user-for-request', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
       });
+     
       
-      if (ans.data.data) {
-        setSendData(ans.data.data); // Or ans.data.data if you need the full array
+      if (ans.data.data[0]) {
+        setSendData(ans.data.data[0]); // Or ans.data.data if you need the full array
       } else {
         setSendData(null); // No data for sending requests
       }
