@@ -1,19 +1,18 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const path = require('path');
+require("dotenv").config();
 
 const app = express(); 
 const _dirname = path.resolve();
 
 // Define CORS options
-
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'https://helpngrow.onrender.com',
 ];
 
-console.log(allowedOrigins,"4654645");
+console.log(allowedOrigins,"allowed Origin");
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
