@@ -60,11 +60,7 @@ exports.sendRequest = async (req, res) => {
         if (!receiver.activate) {
             return res.status(400).json({ msg: "The receiver must activate their account to receive requests." });
         }
-
-        // Ensure sender and receiver are at the same level
-        // if (sender.level !== receiver.level) {
-        //     return res.status(400).json({ msg: "You can only send requests to users at the same level." });
-        // }
+        
 
         // Check how many requests the receiver has already received
         const receiverRequestsCount = await RequestModel.countDocuments({
@@ -82,7 +78,7 @@ exports.sendRequest = async (req, res) => {
         }
 
         // Check if the request already exists
-        const existingRequest = await RequestModel.findOne({ senderId, receiverId });
+        const existingRequest = await RequestModel.findOne({ senderId, receiverId, status });
         if (existingRequest) {
             return res.status(400).json({ msg: "Request already sent." });
         }
@@ -120,6 +116,17 @@ exports.acceptRequest = async (req, res) => {
         // Ensure the sender and receiver are at the same level
         const receiver = await Client.findById(userId);
 
+         if (receiver.level > 0 && sender.level === 0) {
+            request.status = 'accepted';
+            request.updatedAt = Date.now();
+            await request.save();
+
+            return res.status(200).json({
+                msg: "Request accepted successfully.",
+                data: request
+            });
+        }
+
         // Ensure sender is activated
         if (!sender.activate) {
             return res.status(400).json({ msg: "You need to activate your account to send requests." });
@@ -128,13 +135,6 @@ exports.acceptRequest = async (req, res) => {
         if (!receiver.activate) {
             return res.status(400).json({ msg: "The receiver must activate their account to receive requests." });
         }
-
-
-
-        // if (sender.level !== receiver.level) {
-        //     return res.status(400).json({ msg: "You can only accept requests from users at the same level." });
-
-        // }
 
         request.status = 'accepted';
         request.updatedAt = Date.now();
