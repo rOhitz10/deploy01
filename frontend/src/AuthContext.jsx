@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('epin');
     localStorage.removeItem('isAdmin');
-    navigate('/login');
+    navigate('/');
   };
 
 
