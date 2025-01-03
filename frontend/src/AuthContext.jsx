@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const [isAdmin, setAdmin] = useState(() => localStorage.getItem('isAdmin') === 'true');
+  
 
   const login = (token, epin) => {
    
@@ -48,7 +49,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('isAdmin');
     navigate('/');
   };
-
 
 
   return (

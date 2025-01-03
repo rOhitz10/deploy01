@@ -94,11 +94,12 @@ const DashHome = () => {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
       });
      
+     
       
       if (ans.data.data[0]) {
         setSendData(ans.data.data[0]); // Or ans.data.data if you need the full array
       } else {
-        setSendData(null); // No data for sending requests
+        setSendData(ans.data.data); // No data for sending requests
       }
       setSendError(null); // Reset error state on success
     } catch (error) {
@@ -129,7 +130,7 @@ const DashHome = () => {
       };
     
       fetchReceiveData();
-    }, [setReceiveCount]);
+    }, []);
 
   // UseEffect to fetch data when component mounts
   useEffect(() => {

@@ -334,7 +334,8 @@ exports.getUsersAtSameLevel = async (req, res) => {
                 msg: `No active users found at level ${userLevel} with 'halt' set to false.`,
             });
         }
-
+    
+         
         return res.status(200).json({
             msg: `Users at level ${userLevel} who are active and not halted, sorted by level update.`,
             data: usersAtSameLevel,

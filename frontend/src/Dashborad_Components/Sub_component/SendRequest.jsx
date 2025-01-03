@@ -9,8 +9,7 @@ function SendRequest({ sendData }) {
 
   const receiverId = sendData?._id || null;
   const epin = sendData?.epin || ''; // Ensure epin exists before usage
-  console.log(sendData,"geT USER FOR REQUEST",sendData.name);
-  console.log(epin,"datatgysjgfjs",receiverId);
+  
   const handleView = async () => {
     try {
       const response = await axios.get(
