@@ -57,7 +57,7 @@ function ReceiveRequest({ Data, Count = 0 }) {
   };
 
   return (
-    <div className="overflow-y-auto h-80 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 p-4">
+    <div className="overflow-y-auto h-80 scrollbar-y p-4">
       {errorMessage && (
         <div className="text-red-500 text-sm bg-red-100 border border-red-500 p-2 rounded-md mb-4">
           {errorMessage}
