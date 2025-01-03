@@ -142,6 +142,15 @@ exports.acceptRequest = async (req, res) => {
         await request.save();
 
         receiver.newLinksReceived = receiver.newLinksReceived + 1;
+        if (receiver.newLinksReceived >= 2) {
+
+            receiver.halt = true;
+            await receiver.save();
+        }        
+        if(sender.halt === true){
+            sender.halt = false;
+            sender.save();
+        }
         // Check if the user has reached the threshold for level-up
         if (receiver.newLinksReceived >= getRequiredLinksForLevel(receiver.level)) {
             // Automatically level up the user if they have enough links
