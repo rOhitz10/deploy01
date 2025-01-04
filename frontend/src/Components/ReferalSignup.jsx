@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../assets/Logo.png';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-
 
 function ReferalSignUp() {
   const { sponsorEpin } = useParams();
@@ -19,16 +17,14 @@ function ReferalSignUp() {
     acceptTerms: false,
   });
 
-  const [error, setError] = useState(''); // State to handle error messages
+  const [error, setError] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-
-  // Set the sponsorId when component mounts
   useEffect(() => {
     if (sponsorEpin) {
       setFormData((prevData) => ({
         ...prevData,
-        sponsorId: sponsorEpin,  // Set sponsorId from URL params
+        sponsorId: sponsorEpin,
       }));
     }
   }, [sponsorEpin]);
@@ -52,151 +48,113 @@ function ReferalSignUp() {
         }
       })
       .catch((err) => {
-        console.log(err);
         const errorMessage = err.response?.data?.msg || 'Registration failed. Please try again.';
         setError(errorMessage);
       });
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-600 to-blue-500 p-4 sm:p-8">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-lg transition-transform transform ">
-        <div className="text-center">
-          <img src={Logo} alt="Logo" className="w-36 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800">Create Your Account</h2>
-          <p className="text-gray-600 mt-1">
-            Already have an account?{' '}
-            <Link to="/signin" className="text-indigo-600 hover:underline">
-              Sign in here
-            </Link>
-          </p>
-        </div>
-
-        {/* Display error message */}
-        {error && (
-          <div className="text-red-500 bg-red-100 border border-red-400 text-center rounded-lg p-2 mb-4">
-            {error}
+    <div className="flex items-center justify-center min-h-screen p-4 bg-gradient-to-br from-purple-600 to-blue-500 relative">
+      <div className="bg-white rounded-lg shadow-lg flex max-w-4xl w-full">
+        <div className="w-full md:w-1/2 p-8">
+          <div className="text-center mb-4">
+            <img src={Logo} alt="Logo" className="w-24 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-800">Create Your Account</h2>
+            <p className="text-gray-600 mt-1">
+              Already have an account?{' '}
+              <Link to="/signin" className="text-indigo-600 hover:underline">
+                Sign in here
+              </Link>
+            </p>
           </div>
-        )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label htmlFor="sponsorId" className="block text-sm font-medium text-gray-700">
-              Sponsor ID
-            </label>
+          {error && (
+            <div className="text-red-500 bg-red-100 border border-red-400 text-center rounded-lg p-2 mb-4">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
-              readOnly
               name="sponsorId"
-              id="sponsorId"
-              value={formData.sponsorId} // Use value from formData
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              value={formData.sponsorId}
+              readOnly
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
-          </div>
-          <div>
-            <label htmlFor="epin" className="block text-sm font-medium text-gray-700">
-              Epin
-            </label>
             <input
               type="text"
               name="epin"
-              id="epin"
+              placeholder="Epin"
               value={formData.epin}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
-          </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type={passwordVisible ? 'text' : 'password'} 
-              name="password"
-              id="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            />
-             <div
-              onClick={() => setPasswordVisible(!passwordVisible)} // Toggle visibility
-              className="absolute right-12 top-[49%]  transform -translate-y-1/2 cursor-pointer text-gray-500"
-            >
-              {passwordVisible ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+            <div className="relative">
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              />
+              <div
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500"
+              >
+                {passwordVisible ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+              </div>
             </div>
-          </div>
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Name
-            </label>
             <input
               type="text"
               name="name"
-              id="name"
+              placeholder="Name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
-          </div>
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
             <input
               type="email"
               name="email"
-              id="email"
+              placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
-          </div>
-          <div>
-            <label htmlFor="number" className="block text-sm font-medium text-gray-700">
-              Mobile No.
-            </label>
             <input
               type="tel"
               name="number"
-              id="number"
+              placeholder="Mobile No."
               value={formData.number}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
-          </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              name="acceptTerms"
-              id="acceptTerms"
-              checked={formData.acceptTerms}
-              onChange={handleChange}
-              className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring focus:ring-indigo-500"
-            />
-            <label htmlFor="acceptTerms" className="ml-2 text-sm text-gray-600">
-              I accept the{' '}
-              <a href="#" className="text-indigo-600 hover:underline">
-                Terms and Conditions
-              </a>
-            </label>
-          </div>
-          <button
-            type="submit"
-            disabled={!formData.acceptTerms}
-            className="w-full py-2 mt-4 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
-          >
-            Sign up
-          </button>
-        </form>
-
-        <p className="mt-4 text-center text-sm text-gray-600">
-          or
-          <Link to="/">
-            <span className="text-indigo-600 hover:underline ml-1">
-              Go back to website
-            </span>
-          </Link>
-        </p>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="acceptTerms"
+                checked={formData.acceptTerms}
+                onChange={handleChange}
+                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring focus:ring-indigo-500"
+              />
+              <label className="ml-2 text-sm text-gray-600">
+                I accept the{' '}
+                <a href="#" className="text-indigo-600 hover:underline">
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+            <button
+              type="submit"
+              disabled={!formData.acceptTerms}
+              className="w-full py-2 font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition"
+            >
+              Sign up
+            </button>
+          </form>
+        </div>
+        <div className="hidden md:block w-1/2 bg-cover bg-center rounded-r-lg" style={{ backgroundImage: `url('https://infinitemlmsoftware.com/blog/wp-content/uploads/2024/02/Opportunities-in-Direct-Selling.png')` }}></div>
       </div>
     </div>
   );

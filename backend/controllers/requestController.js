@@ -78,14 +78,14 @@ exports.sendRequest = async (req, res) => {
         }
 
         // Check if the request already exists
-        const existingRequest = await RequestModel.findOne({ senderId, receiverId,level:sender.level });
-        if (existingRequest) {
+        const existingRequest = await RequestModel.findOne({ senderId, receiverId,level:sender.level });        
+      if (existingRequest) {
+
             return res.status(400).json({ msg: "Request already sent." });
         }
 
         // Create a new request
         const newRequest = new RequestModel({ senderId, receiverId , level:sender.level  });
-
         const savedRequest = await newRequest.save();
         return res.status(201).json({
             msg: "Request sent successfully.",
@@ -142,11 +142,12 @@ exports.acceptRequest = async (req, res) => {
         await request.save();
 
         receiver.newLinksReceived = receiver.newLinksReceived + 1;
-        if (receiver.newLinksReceived >= 2) {
+
+        if (receiver.level >=1 &&  receiver.newLinksReceived >= 2) {
 
             receiver.halt = true;
             await receiver.save();
-        }        
+        }
         if(sender.halt === true){
             sender.halt = false;
             sender.save();
