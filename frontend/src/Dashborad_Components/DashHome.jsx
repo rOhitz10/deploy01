@@ -239,7 +239,7 @@ const DashHome = () => {
 
             <div className="border-2 border-red-400 rounded-lg p-6 text-center">
               <h2 className="text-xl font-semibold text-red-500">Send Help</h2>
-              <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" onClick={fetchSendData}>
+              <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" >
                 Send Link Available
               </button>
               {sendError ? (
