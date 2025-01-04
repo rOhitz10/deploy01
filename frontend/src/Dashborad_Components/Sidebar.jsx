@@ -92,10 +92,10 @@ function Sidebar() {
         {isProfileOpen && (
           <div className="ml-4 my-2  space-y-8 text-sm text-white font-semibold">
             <Link to="/dashboard/profile" >
-            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-500 hover:text-blue-600">My Profile</div>
+            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-400 hover:text-black">My Profile</div>
             </Link>
             <Link to="/dashboard/financial-info">
-            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-500 hover:text-blue-600">Financial </div>
+            <div  className="p-2 shadow-xl rounded-lg hover:bg-slate-400 hover:text-black">Financial </div>
             </Link>
             {/* <div className="px-2 border-2 rounded-lg hover:bg-slate-500 hover:text-blue-600">Password</div> */}
            

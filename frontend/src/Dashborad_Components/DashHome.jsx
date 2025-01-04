@@ -88,27 +88,25 @@ const DashHome = () => {
  
  
   // Fetch Send Request Data
-  const fetchSendData = async () => {
-    try {
-      const ans = await axios.get('/api/v1/get-user-for-request', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
-      });
-     
-     
-      
-      if (ans.data.data[0]) {
-        setSendData(ans.data.data[0]); // Or ans.data.data if you need the full array
-      } else {
-        setSendData(ans.data.data); // No data for sending requests
+  useEffect(() => {
+    const fetchSendData = async () => {
+      try {
+        const ans = await axios.get('/api/v1/get-user-for-request', {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+        });     
+        if (ans.data.data[0]) {
+          setSendData(ans.data.data[0]); // Or ans.data.data if you need the full array
+        } else {
+          setSendData(ans.data.data); // No data for sending requests
+        }
+        setSendError(null); // Reset error state on success
+      } catch (error) {
+        const errorMessage = error.response?.data?.msg || 'Please try again.';
+        setSendError(errorMessage);
       }
-      setSendError(null); // Reset error state on success
-    } catch (error) {
-      const errorMessage = error.response?.data?.msg || 'Please try again.';
-      setSendError(errorMessage);
-    }
-  };
-
- 
+    };
+    fetchSendData();
+  },[sendData]);
 
   // Fetch pending requests from the server
   useEffect(() => {
@@ -119,7 +117,6 @@ const DashHome = () => {
         });
         const requestsData = response.data.data;
         setReceiveData(requestsData);
-        
 
         // Update pending requests count in the parent component
         const pendingCount = requestsData.filter((req) => req.status === 'pending').length;
@@ -128,15 +125,13 @@ const DashHome = () => {
           console.error('Failed to fetch requests:', error);
         }
       };
-    
       fetchReceiveData();
-    }, []);
+    }, [receiveData]);
 
   // UseEffect to fetch data when component mounts
   useEffect(() => {
     fetchData();
-    fetchSendData();
-    // fetchReceiveData();
+    
   }, [sponsorId]);
 
   // Loading and error handling
