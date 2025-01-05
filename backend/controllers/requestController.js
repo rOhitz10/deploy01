@@ -143,7 +143,7 @@ exports.acceptRequest = async (req, res) => {
 
         receiver.newLinksReceived = receiver.newLinksReceived + 1;
 
-        if (receiver.level >=1 &&  receiver.newLinksReceived >= 2) {
+        if (receiver.level >=1 &&  receiver.newLinksReceived === 2) {
 
             receiver.halt = true;
             await receiver.save();
