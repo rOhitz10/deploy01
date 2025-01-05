@@ -171,7 +171,7 @@ const DashHome = () => {
                 <input
                   type="text"
                   readOnly
-                  value={textToCopy}
+                  value={sponsorId}
                   className="px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 w-full"
                 />
                 <button
