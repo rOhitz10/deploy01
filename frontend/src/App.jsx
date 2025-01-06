@@ -10,13 +10,15 @@ import DashHome from './Dashborad_Components/DashHome';
 import LevelTree from './Dashborad_Components/LevelTree';
 import MyTeam from './Dashborad_Components/MyTeam';
 import MyEpins from './Dashborad_Components/MyEpins';
-import Levelupdate from './Dashborad_Components/Levelupdate';
 import Profile from './Dashborad_Components/Profile';
 import FinancialInfo from './Dashborad_Components/FinancialInfo';
 import Admin_DashHome from './Admin_Dashboard/Admin_DashHome';
 import AdminLevel from './Admin_Dashboard/AdminLevel';
 import GenerateEpin from './Admin_Dashboard/GenerateEpin';
 import { PrivateRoutes, AdminRoute } from './PrivateRoutes';
+import SendRequest from './Dashborad_Components/Sub_component/SendRequest'
+import ReceiveRequest from './Dashborad_Components/Sub_component/ReceiveRequest';
+
 
 function App() {
   return (
@@ -39,9 +41,11 @@ function App() {
           <Route path="/dashboard/leveltree" element={<LevelTree />} />
           <Route path="/dashboard/myteam" element={<MyTeam />} />
           <Route path="/dashboard/myepins" element={<MyEpins />} />
-          <Route path="/dashboard/Levelupdate" element={<Levelupdate />} />
           <Route path="/dashboard/profile" element={<Profile />} />
           <Route path="/dashboard/financial-info" element={<FinancialInfo />} />
+
+          <Route path="/dashboard/recive/help" element={<ReceiveRequest/>} />
+          <Route path="/dashboard/send/help" element={<SendRequest/>}/>
         </Route>
 
         {/* Protected Admin Dashboard Routes */}

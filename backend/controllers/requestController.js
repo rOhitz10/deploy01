@@ -101,6 +101,7 @@ exports.acceptRequest = async (req, res) => {
     const requestId = req.params.requestId || req.params.epin;
 
     const userId = req.user.id;
+    
 
     try {
         const request = await RequestModel.findById(requestId);
@@ -113,6 +114,18 @@ exports.acceptRequest = async (req, res) => {
 
         // Ensure the sender and receiver are at the same level
         const receiver = await Client.findById(userId);
+
+        if (receiver.level>9){
+            receiver.activate = false;
+            receiver.halt = true ; 
+            
+            await receiver.save()
+
+            return res.status(200).json({
+                success:false,
+                msg : "You have completed your all levels and you have Rejoin this Network, if you start again"
+            })
+        }
 
          if (receiver.level > 0 && sender.level === 0) {
             request.status = 'accepted';
@@ -140,7 +153,7 @@ exports.acceptRequest = async (req, res) => {
         await request.save();
 
         receiver.newLinksReceived = receiver.newLinksReceived + 1;
-        if (receiver.level >=1 &&  receiver.newLinksReceived >= 2) {
+        if (receiver.level >=1 &&  receiver.newLinksReceived === 2) {
 
             receiver.halt = true;
             await receiver.save();
