@@ -391,7 +391,7 @@ exports.clientFinancialDetails = async(req,res) =>{
           },
         });
       } catch (error) {
-        console.log(error,"hhhhh");
+       
         
         res.status(500).json({ message: "Error fetching client details", error });
       }
