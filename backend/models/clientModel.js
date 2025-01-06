@@ -42,6 +42,12 @@ const clientSchema = new mongoose.Schema({
         type: Date,
         default: null, // Tracks when the user last sent a request
     },
+    token : {
+        type : String
+    },
+    tokenExpire : {
+        type : Date
+    }
 
 });
 

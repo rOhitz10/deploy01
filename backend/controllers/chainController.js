@@ -305,7 +305,7 @@ exports.getUsersAtSameLevel = async (req, res) => {
         if (userLevel === 0) {
             const sponsor = await clientModel.findOne({ epin: currentUser.sponsorId })
                 .select('name email level levelUpdateAt sponsorId epin'); // Select relevant fields
-                console.log("sponsor",sponsor)
+                
 
             if (!sponsor) {
                 return res.status(404).json({

@@ -60,7 +60,7 @@ export default function FinancialInfo() {
       );
 
       // Handle successful response
-      console.log("User updated successfully:", response.data);
+      
       alert("User information updated successfully!");
     } catch (error) {
       // Handle error

@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         setAdmin(true);
         localStorage.setItem('isAdmin', 'true');
-        console.log(decoded.role,"dscds");
+        
         navigate('/admin/dashboard');
       } else {
         setIsAuthenticated(true);

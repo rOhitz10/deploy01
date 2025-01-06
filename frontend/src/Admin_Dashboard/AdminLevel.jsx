@@ -48,7 +48,7 @@ function AdminLevel() {
 
         });
         setUsers(res.data.users);
-        console.log(res,data,'Fetched users:', res.data.users);
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
