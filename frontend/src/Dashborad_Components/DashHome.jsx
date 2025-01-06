@@ -22,7 +22,7 @@ const DashHome = () => {
   const [error, setError] = useState(null);
   const [copy, setCopy] = useState(false);
   const [menuBar, setMenuBar] = useState(false);
-  const sponsorId = localStorage.getItem('sponsorId');
+  const sponsorId = localStorage.getItem('epin');
   const textToCopy = `http://localhost:8000/r/signup/${sponsorId}`;
 
   const handleCopy = async () => {
