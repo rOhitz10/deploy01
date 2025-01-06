@@ -84,9 +84,9 @@ function LevelTree() {
           { receiverId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log(Updatelevel, 'Level-up request sent successfully');
+       
       } catch (error) {
-        console.log("update level fail:",error);
+        console.error("update level fail:",error);
       }
     }
   }

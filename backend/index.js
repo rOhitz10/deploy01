@@ -12,7 +12,7 @@ const allowedOrigins = [
   'https://helpngrow.onrender.com',
 ];
 
-console.log(allowedOrigins,"allowed Origin");
+
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
