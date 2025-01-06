@@ -5,8 +5,6 @@ import Header from './Header';
 import { FaArrowCircleRight } from 'react-icons/fa';
 import axios from 'axios';
 import { useAuth } from '../AuthContext';
-import ReceiveRequest from './Sub_component/ReceiveRequest';
-import SendRequest from './Sub_component/SendRequest';
 
 const DashHome = () => {
   const { logout } = useAuth();
@@ -24,11 +22,7 @@ const DashHome = () => {
   const [error, setError] = useState(null);
   const [copy, setCopy] = useState(false);
   const [menuBar, setMenuBar] = useState(false);
-  const [receiveData, setReceiveData] = useState([]);
-  const [sendData, setSendData] = useState(null);
-  const [sendError, setSendError] = useState(null);
-  const [receiveCount, setReceiveCount] = useState('');
-  const sponsorId = localStorage.getItem('epin');
+  const sponsorId = localStorage.getItem('sponsorId');
   const textToCopy = `http://localhost:8000/r/signup/${sponsorId}`;
 
   const handleCopy = async () => {
@@ -86,53 +80,13 @@ const DashHome = () => {
     }
   };
  
- 
-  // Fetch Send Request Data
-  useEffect(() => {
-    const fetchSendData = async () => {
-      try {
-        const ans = await axios.get('/api/v1/get-user-for-request', {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
-        });     
-        if (ans.data.data[0]) {
-          setSendData(ans.data.data[0]); // Or ans.data.data if you need the full array
-        } else {
-          setSendData(ans.data.data); // No data for sending requests
-        }
-        setSendError(null); // Reset error state on success
-      } catch (error) {
-        const errorMessage = error.response?.data?.msg || 'Please try again.';
-        setSendError(errorMessage);
-      }
-    };
-    fetchSendData();
-  },[sendData]);
 
-  // Fetch pending requests from the server
-  useEffect(() => {
-    const fetchReceiveData = async () => {
-      try {
-        const response = await axios.get('/api/v1/my-requests', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-        const requestsData = response.data.data;
-        setReceiveData(requestsData);
-
-        // Update pending requests count in the parent component
-        const pendingCount = requestsData.filter((req) => req.status === 'pending').length;
-              setReceiveCount(pendingCount);
-      } catch (error) {
-          console.error('Failed to fetch requests:', error);
-        }
-      };
-      fetchReceiveData();
-    }, [receiveData]);
 
   // UseEffect to fetch data when component mounts
   useEffect(() => {
     fetchData();
     
-  }, [sponsorId]);
+  }, []);
 
   // Loading and error handling
   if (loading) return <div className="p-8 text-center">Loading...</div>;
@@ -223,32 +177,11 @@ const DashHome = () => {
 
             <div className="bg-white p-4 rounded-lg shadow-md text-center">
               <h2 className="text-sm text-gray-500">CURRENT STATUS</h2>
-              <span className="text-xl font-semibold text-blue-500">Activated</span>
+              <span className="text-xl font-semibold text-blue-500">{data.currentStatus}</span>
             </div>
           </div>
 
-          {/* Action Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <div className="border-2 border-green-400 rounded-lg text-center">
-              <h2 className="text-xl font-semibold text-green-500">Receive Help</h2>
-              <button className="my-4 px-4 py-2 bg-green-500 text-white rounded-full"   >
-                {receiveCount} Receive Link Available
-              </button>
-              {receiveData && <ReceiveRequest Data={receiveData} Count={receiveCount}/>}
-            </div>
 
-            <div className="border-2 border-red-400 rounded-lg p-6 text-center">
-              <h2 className="text-xl font-semibold text-red-500">Send Help</h2>
-              <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded-full" >
-                Send Link Available
-              </button>
-              {sendError ? (
-                <div className="text-red-500 bg-red-100 text-center p-2 m-4">{sendError}</div>
-              ) : (
-                sendData && <SendRequest sendData={sendData} />
-              )}
-            </div>
-          </div>
         </div>
       </div>
     </div>

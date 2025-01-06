@@ -4,11 +4,9 @@ import { IoHomeOutline } from "react-icons/io5";
 import { SlLogin } from "react-icons/sl";
 import { ImTree } from "react-icons/im";
 import { AiOutlineTeam } from "react-icons/ai";
-import { BsShieldLock } from "react-icons/bs";
-// import { FaKeycdn } from "react-icons/fa6";
-import {  GiGrowth } from "react-icons/gi";
 import { LiaSignOutAltSolid } from "react-icons/lia";
-
+import { FaHandsHelping } from "react-icons/fa";
+import { GrSend } from "react-icons/gr";
 import { FaArrowDownWideShort,FaArrowUpShortWide } from "react-icons/fa6";
 import { useAuth } from '../AuthContext';
 import {jwtDecode} from 'jwt-decode';
@@ -17,7 +15,7 @@ import {jwtDecode} from 'jwt-decode';
 const Card = ({icon, title, onClick}) => {
   return (
     <div
-      className="flex items-center justify-start px-4 py-2 w-full bg-white rounded-md shadow-sm transition-all duration-300"
+      className="flex items-center justify-start px-4 py-2 my-2 w-full bg-white rounded-md shadow-sm transition-all duration-300"
       onClick={onClick} // Attach onClick here
     >
       <div className="text-blue-500">{icon}</div>
@@ -64,7 +62,7 @@ function Sidebar() {
 
 
   return (
-    <div className=" min-h-screen bg-white scrollbar-y ">
+    <div className=" min-h-screen bg-gray-100 scrollbar-y ">
       <div className=' flex flex-col items-start space-y-4 px-4'>
 
       <h1 className="text-xl font-bold my-3 text-center">Help'n'Groww</h1>
@@ -126,24 +124,15 @@ function Sidebar() {
         <Link to={`/dashboard/myteam`}>
           <Card icon={<AiOutlineTeam className="text-lg" />} title="My Team" />
         </Link>
-
-        {/* <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">EPIN</h2> */}
-        {/* <Link to={`/dashboard/myepins`}>
-          <Card icon={<BsShieldLock className="text-lg" />} title="Request Epins" />
-        </Link> */}
-        <Link to={`/dashboard/Levelupdate`}>
-          <Card icon={< GiGrowth className="text-lg" />} title="Level Update" />
+        
+        <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">Links</h2>
+        <Link to='/dashboard/recive/help'>
+          <Card icon={<FaHandsHelping className="text-lg" />} title="Recive Help" />
         </Link>
-
-        {/* <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">SUPPORT</h2>
-        <Link to="#">
-          <Card icon={<IoTicketOutline className="text-lg" />} title="Tickets" />
-        </Link>
-
-        <h2 className="text-xs font-semibold text-gray-500 px-4 mt-4">UTILITY</h2>
-        <Link to="#">
-          <Card icon={<GiNewspaper className="text-lg" />} title="News" />
-        </Link> */}
+        <Link to='/dashboard/send/help'>
+          <Card icon={< GrSend className="text-lg" />} title="Send Help" />
+        </Link>  
+    
       </div>
 
       {/* Sign Out Button */}
