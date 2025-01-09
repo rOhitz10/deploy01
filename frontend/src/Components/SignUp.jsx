@@ -3,6 +3,7 @@ import Logo from '../assets/Logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import Img from '../assets/binaryImg.jpg'
 
 function SignUp() {
   const navigate = useNavigate();
@@ -45,14 +46,18 @@ function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen  p-4 bg-gradient-to-br from-purple-600 to-blue-500 relative">
-      <div className="bg-white rounded-lg shadow-lg flex max-w-4xl w-full">
+ <div
+      className="min-h-screen flex items-center justify-start bg-cover bg-center  sm:p-8"
+      style={{
+        backgroundImage: `url(${Img})`,
+      }}
+    >      <div className="border-2 border-blue-950 rounded-lg shadow-lg p-8 max-w-lg w-full">
         {/* Left Side - Form */}
-        <div className="w-full md:w-1/2 p-8">
+        {/* <div className="w-full md:w-1/2 p-8"> */}
           <div className="text-center mb-4">
-            <img src={Logo} alt="Logo" className="w-24 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-800">Create Your Account</h2>
-            <p className="text-gray-600 mt-1">
+            <img src={Logo} alt="Logo" className="w-32 mx-auto" />
+            <h2 className="text-2xl font-bold text-white">Create Your Account</h2>
+            <p className="text-gray-400 mt-1">
               Already have an account?{' '}
               <Link to="/signin" className="text-indigo-600 hover:underline">
                 Sign in here
@@ -132,7 +137,7 @@ function SignUp() {
                 onChange={handleChange}
                 className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring focus:ring-indigo-500"
               />
-              <label className="ml-2 text-sm text-gray-600">
+              <label className="ml-2 text-sm text-gray-400">
                 I accept the{' '}
                 <a href="#" className="text-indigo-600 hover:underline">
                   Terms and Conditions
@@ -150,8 +155,8 @@ function SignUp() {
         </div>
 
         {/* Right Side - Image */}
-        <div className="hidden md:block w-1/2 bg-cover bg-center rounded-r-lg" style={{ backgroundImage: `url('https://infinitemlmsoftware.com/blog/wp-content/uploads/2024/02/Opportunities-in-Direct-Selling.png')` }}></div>
-      </div>
+        {/* <div className="hidden md:block w-1/2 bg-cover bg-center rounded-r-lg" style={{ backgroundImage: `url(${signupImg})` }}></div> */}
+      {/* </div> */}
     </div>
   );
 }
