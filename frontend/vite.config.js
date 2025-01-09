@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://helpgrow.onrender.com', // Your backend API URL
+        // target: 'https://helpgrow.onrender.com', // Your backend API URL
+        target: 'http://localhost:4000',
         changeOrigin: true,
         secure: false, // If you are using HTTPS with a self-signed cert
       },

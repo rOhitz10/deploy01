@@ -19,7 +19,7 @@ function Navbar() {
      <Link to='/about'>
       <li>ABOUT</li>
      </Link>
-     <Link to='/plan'>
+     <Link to='/plan.pdf'>
       <li>PLAN</li>
      </Link>
      <Link to='/contact'>
@@ -37,7 +37,7 @@ function Navbar() {
                 ABOUT
               </li>
             </Link>
-            <Link to="/plan" onClick={() => setMenuOpen(false)} className="w-full text-center">
+            <Link to="/plan.pdf" onClick={() => setMenuOpen(false)} className="w-full text-center">
               <li className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-300">
                 PLAN
               </li>

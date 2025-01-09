@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import Img from "../assets/signinImg.jpg"
 
 const SignIn = () => {
   const { login } = useAuth();
@@ -40,15 +41,15 @@ const SignIn = () => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center p-6 sm:p-8"
+      className="min-h-screen flex items-center justify-start bg-cover bg-center p-6 sm:p-8"
       style={{
-        backgroundImage: "url('https://media.istockphoto.com/id/1373652891/vector/ponzi-scheme-business-pyramid-network-with-investors-group.jpg?s=612x612&w=0&k=20&c=JXtQE-Yj4eSeB7GNlApzqiiWYSyepAVuOO362FUuhTA=')",
+        backgroundImage: `url(${Img})`,
       }}
     >
-      <div className="w-full max-w-md p-8 space-y-8 bg-white bg-opacity-90 rounded-lg shadow-lg">
+      <div className="w-full max-w-md p-8 space-y-8 bg-teal-950 bg-opacity-5 rounded-lg shadow-lg">
         <div className="text-center">
-          <h2 className="text-2xl font-extrabold text-gray-800">Sign In to Your Account</h2>
-          <p className="text-gray-600">
+          <h2 className="text-2xl font-extrabold text-white">Sign In to Your Account</h2>
+          <p className="text-gray-400">
             Get started for free{' '}
             <Link to="/signup" className="text-indigo-600 hover:underline">
               Sign Up Here
@@ -111,14 +112,14 @@ const SignIn = () => {
                 type="checkbox"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">
+              <label htmlFor="remember-me" className="ml-2 text-sm text-gray-400">
                 Remember me
               </label>
             </div>
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link to="/forgot/password" className="text-indigo-600 hover:text-indigo-500">
                 Forgot Password?
-              </a>
+              </Link>
             </div>
           </div>
 

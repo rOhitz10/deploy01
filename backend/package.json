@@ -181,8 +181,8 @@
   },
   "scripts": {
     "dev": "nodemon backend/index.js",
-    "start": "node backend/index.js",
-    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
+    "start": "node backend/index.js"
+   
   },
   "engines": {
     "node": ">=16.0.0 <20.0.0"

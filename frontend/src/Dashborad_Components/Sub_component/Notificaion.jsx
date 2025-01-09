@@ -103,7 +103,7 @@ const notifications = [
 function NotificationItem({ notification }) {
   return (
     <div className="notification-item p-4 mb-4 rounded-lg bg-gray-700 hover:bg-gray-600">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center ">
         <div>
           <strong>{notification.user}</strong> {notification.action}{" "}
           <strong>{notification.project}</strong>
@@ -148,7 +148,7 @@ function NotificationItem({ notification }) {
 
 export default function Notifications() {
   return (
-    <div className="notifications-container text-white p-6 bg-gray-800 rounded-xl max-w-4xl mx-auto">
+    <div className="notifications-container text-white p-6 bg-gray-800 rounded-xl w-96 max-w-4xl mx-auto">
       <div className="header flex justify-between items-center border-b-2 pb-3 mb-4">
         <h1 className="text-2xl font-semibold">Notifications</h1>
         <button className="text-sm text-blue-400 hover:text-blue-300">Mark all as read</button>

@@ -18,6 +18,8 @@ import GenerateEpin from './Admin_Dashboard/GenerateEpin';
 import { PrivateRoutes, AdminRoute } from './PrivateRoutes';
 import SendRequest from './Dashborad_Components/Sub_component/SendRequest'
 import ReceiveRequest from './Dashborad_Components/Sub_component/ReceiveRequest';
+import ForgotPassword from './Components/ForgotPassword';
+import ResetPassword from './Components/ResetPassword';
 
 
 function App() {
@@ -28,12 +30,13 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="plan" element={<Plan />} />
+        <Route path="plan.pdf" element={<Plan />} />
         <Route path="contact" element={<Contact />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="r/signup/:sponsorEpin" element={<ReferalSignUp/>} />
-
+        <Route path="forgot/password" element={<ForgotPassword/>}/>
+        <Route path="reset/password/:token" element={<ResetPassword/>} />
 
         {/* Protected User Dashboard Routes */}
         <Route element={<PrivateRoutes />}>
