@@ -180,7 +180,7 @@
     "zod": "^3.23.8"
   },
   "scripts": {
-    "dev": "nodemon backend/index.js",
+    "dev": "nodemon index.js",
     "start": "node index.js"
    
   },
