@@ -30,8 +30,8 @@ exports.tokenResetLink = async (req,res) => {
 
        
 
-        const emailTitle  = " Password Reset Link From Help N Groww "
-        const url = `${token}`
+        const emailTitle  = " Password Reset Link From Help N Groww"
+        const url = `http://localhost:3000/reset/password/${token}`
         await sendMail(email , emailTitle , `click on link to reset your Password ${url}`)
 
         return res.status(200).json({
@@ -70,7 +70,8 @@ exports.resetPassword = async(req,res) => {
             })
         }
         const user = await Client.findOne({token: token})
-
+      
+         
         if(!user){
             return res.status(404).json({
                 success : false,

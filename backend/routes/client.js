@@ -21,8 +21,8 @@ router.post("/generateEpins", generateEpins)
 router.post('/send-request', authMiddleware, sendRequest) 
 router.post('/send-request-for-levelup',authMiddleware,sendRequestToLeveledUpUser ) 
 
-router.post('/reset-Password-token-generate',authMiddleware,tokenResetLink ) 
-router.post('/renew-Password-reset-password',authMiddleware,resetPassword ) 
+router.post('/reset-Password-token-generate',tokenResetLink ) 
+router.post('/renew-Password-reset-password',resetPassword ) 
 
 router.get("/all-downline", authMiddleware, getDownlines); 
 router.get("/count-all-direct-downline", authMiddleware, getDownlinesCount); 

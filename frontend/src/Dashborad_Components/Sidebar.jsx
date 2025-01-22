@@ -10,6 +10,7 @@ import { GrSend } from "react-icons/gr";
 import { FaArrowDownWideShort,FaArrowUpShortWide } from "react-icons/fa6";
 import { useAuth } from '../AuthContext';
 import {jwtDecode} from 'jwt-decode';
+import DP from './Sub_component/DP';
  
 
 const Card = ({icon, title, onClick}) => {
@@ -67,13 +68,14 @@ function Sidebar() {
 
       <h1 className="text-xl font-bold my-3 text-center">Help'n'Groww</h1>
 
-      <div className="bg-slate-300 rounded-xl p-4  space-x-4 ">
+      <div className="bg-slate-300 rounded-xl p-3  space-x-4 ">
         <div className="flex items-center w-full cursor-pointer">
-          <img
+          {/* <img
             src="https://cdnb.artstation.com/p/assets/images/images/026/142/657/large/sleepy-jhin-roronoa-zoro-portrait.jpg?1587999560"
             alt="Profile"
             className="rounded-full w-10 h-10"
-            />
+            /> */}
+            <DP/>
           <div className=" mx-2">
             <h3 className="text-sm font-semibold overflow-hidden ">{userName}</h3>
             <p className="text-xs text-gray-600">{userId}</p>
